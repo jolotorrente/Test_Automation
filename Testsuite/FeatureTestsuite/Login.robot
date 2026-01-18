@@ -9,7 +9,8 @@ Resource        ../../Keywords/Login_keywords.robot
 Resource        ../../Variables/Login_variables.robot
 
 ### Documentation ###
-Documentation   This test suite verifies the log-in and log out functionality
+Documentation   This test suite verifies the log-in functionality
+...             This also includes assertion of Elements within the Login Page
 
 ### Keyword executed on start of each tests ###
 Test Setup      Launch Website

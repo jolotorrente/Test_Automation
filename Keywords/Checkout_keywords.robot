@@ -16,7 +16,6 @@ Resource        ../Variables/Checkout_variables.robot
 # This Keyword is used to checkout current cart
 Checkout Cart
     [Arguments]  ${firstname}   ${lastname}     ${postalcode}
-
     Open Cart
     Input Text                              xpath://*[@id='first-name']         ${firstname}
     Input Text                              xpath://*[@id='last-name']          ${lastname}

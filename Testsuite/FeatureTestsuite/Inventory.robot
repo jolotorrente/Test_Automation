@@ -4,13 +4,13 @@ Library         PuppeteerLibrary
 ### Resource List of Keywords ###
 Resource        ../../Keywords/Login_keywords.robot
 Resource        ../../Keywords/Inventory_keywords.robot
-Resource        ../../Keywords/Checkout_keywords.robot
 
 ### Resource List of Variables ###
 Resource        ../../Variables/Login_variables.robot
 
 ### Documentation ###
-Documentation   This test suite verifies the log-in and log out functionality
+Documentation   This test suite verifies the Add and Remove of Products to Shopping Cart functionality
+...             This also includes assertion of Elements within the Inventory Page
 
 ### Keyword executed on start of each tests ###
 Test Setup      Launch Website
