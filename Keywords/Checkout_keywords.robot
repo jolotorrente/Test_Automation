@@ -17,6 +17,7 @@ Resource        ../Variables/Checkout_variables.robot
 # This Keyword is used to checkout current cart
 Checkout Cart
     [Arguments]    ${firstname}    ${lastname}    ${postalcode}
+    Set Screenshot Directory        ${SCREENSHOT_CHECKOUT_DIR}
     Open Cart
     Validate Cart
     Supply User Information  ${firstname}    ${lastname}    ${postalcode}
