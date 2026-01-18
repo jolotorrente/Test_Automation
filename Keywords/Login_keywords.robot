@@ -31,7 +31,7 @@ User Login
 
 # This keyword is used to Validate that login page elements exist
 Validate Login Page Elements
-    #List Variable for repeating xpaths
+    # List Variable for repeating xpaths
     ${login_elements} =  Create List
     ...    xpath://*[@id='user-name']
     ...    xpath://*[@id='password']
@@ -67,25 +67,18 @@ Validate Successful Login
 
 # This keyword is a sub-keyword helper and is used to Validate that user Log In was Unsuccessful
 Validate Failed Login
-    &{errors} =  Create Dictionary
-    ...    invalid=Epic sadface: Username and password do not match any user in this service
-    ...    locked=Epic sadface: Sorry, this user has been locked out.
-    ...    emptyuser=Epic sadface: Username is required
-    ...    emptypass=Epic sadface: Password is required
-
     ${actualerror} =    Get Text    xpath://*[@class='error-message-container error']
-
     ${matched} =    Set Variable    ${False}
-    FOR    ${key}    ${expected_error}    IN    &{errors}
+    #For Loop to Verify different Error Messages for different Negative Test Cases
+    FOR    ${key}    ${expected_error}    IN    &{LOGIN_ERRORS}
         IF    '${actualerror}' == '${expected_error}'
             Validate Error Message    ${expected_error}
             ${matched} =    Set Variable    ${True}
             Exit For Loop
         END
     END
-
     IF    not ${matched}
-        Fail    Error Flow Not Yet Covered
+        Fail    Error Flow Not Yet Covered. Please create a New Test Case for Uncovered Test Case
     END
 
 

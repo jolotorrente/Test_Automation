@@ -5,7 +5,6 @@ ${BROWSER}                          chrome
 ${HEADLESS}                         ${False}
 ${SCREENSHOT_LOGIN_DIR}             C:/Test_Automation/reports/screenshots/Login
 
-
 ###########################
 ## USER TYPES AND INPUTS ##
 ###########################
@@ -16,3 +15,12 @@ ${PASSWORD}                         secret_sauce
 ${INVALIDPASSWORD}                  secret-sauce
 ${NULL}
 @{INPUT_VALIDATION}                 123qwe!@#  123098  hello world  @$@&$@!@$%.,  1 a ^
+
+##########################
+## LIST OF LOGIN ERRORS ##
+##########################
+&{LOGIN_ERRORS}
+...    invalid=Epic sadface: Username and password do not match any user in this service
+...    locked=Epic sadface: Sorry, this user has been locked out.
+...    emptyuser=Epic sadface: Username is required
+...    emptypass=Epic sadface: Password is required

@@ -3,7 +3,6 @@
 ${SCREENSHOT_LOGOUT_DIR}            C:/Test_Automation/reports/screenshots/Logout
 ${ERROR_LOCATOR}                    xpath://*[@class='error-message-container error']
 
-
 ######################################
 ## List Variable of Protected Pages ##
 ######################################

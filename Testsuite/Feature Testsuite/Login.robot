@@ -47,8 +47,3 @@ Login 06 - Login Credentials should allow alphanumeric and special characters
 Login 07 - Validate Login Page Elements
     [Tags]  Low
     Validate Login Page Elements
-
-Logout 01 - Logout to Website After Successful Login
-    [Tags]  High    Regression      Security
-    User Login                  ${USERNAME}             ${PASSWORD}
-    User Logout

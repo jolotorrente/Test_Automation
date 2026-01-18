@@ -4,9 +4,11 @@ Library         PuppeteerLibrary
 ### Resource List of Keywords ###
 Resource        ../../Keywords/Global_keywords.robot
 Resource        ../../Keywords/Login_keywords.robot
+Resource        ../../Keywords/Logout_keywords.robot
 
 ### Resource List of Variables ###
 Resource        ../../Variables/Login_variables.robot
+Resource        ../../Variables/Logout_variables.robot
 
 ### Documentation ###
 Documentation   This test suite verifies the log-in and log out functionality
