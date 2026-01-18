@@ -31,14 +31,14 @@ Product-Intercation 02 - Add Product to Shopping Cart from the Shopping Page
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
 
-Product-Intercation 03 - Add and Remove Product to Shopping Cart from the Shopping Page
-    [Tags]  High
-    User Login                  ${USERNAME}             ${PASSWORD}
-    Add Product to Cart
-    Remove Product from Shopping Page
-
- Product-Intercation 4 - Add Product from the Shopping Page and Remove Product from the Shopping Cart
+ Product-Intercation 03 - Add Product from the Shopping Page and Remove Product from the Shopping Cart
     [Tags]  Medium
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
     Remove Product from Shopping Cart
+
+Product-Intercation 04 - Add and Remove Product to Shopping Cart from the Shopping Page
+    [Tags]  High
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Add Product to Cart
+    Remove Product from Shopping Page

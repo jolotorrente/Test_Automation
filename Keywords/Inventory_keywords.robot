@@ -87,43 +87,6 @@ Add Product to Cart
     Should Be Equal As Integers                     ${cartcounter}    ${productquantity}
 
 
-# This keyword is used to Remove Random Product
-Remove Product from Shopping Page
-    [Arguments]    ${quantity}=1    ${retries}=3
-    Wait Until Element Is Visible                   xpath://button[text()='Remove']
-    @{removed_products} =   Create List
-    ${attempt} =    Set Variable    0
-    WHILE    ${attempt} < ${retries}
-        ${remove_count} =   Get Element Count       xpath://button[text()='Remove']
-        Run Keyword If      ${remove_count} == 0    Exit For Loop
-        ${actual_qty} =     Evaluate                min(${quantity}, ${remove_count})
-        FOR    ${i}    IN RANGE    ${actual_qty}
-            # Pick random Remove button
-            ${random_index} =   Evaluate            random.randint(1, ${remove_count})    random
-            ${remove_btn} =     Set Variable        xpath:(//button[text()='Remove'])[${random_index}]
-            # Capture product name from CART *before removal*
-            Open Cart
-            Wait Until Element Is Visible           xpath://div[@class='cart_item']
-            ${cart_items} =     Get Element Count   xpath://div[@class='cart_item']
-            Run Keyword If    ${cart_items} == 0    Exit For Loop
-            ${productname} =    Get Text            xpath:(//div[@class='cart_item'])[1]//div[@class='inventory_item_name']
-            Append To List    ${removed_products}    ${productname}
-            Return to Shopping
-            Wait Until Element Is Visible           ${remove_btn}
-            Click Element                           ${remove_btn}
-            Sleep   0.5s
-            # Validate Add button reappears
-            Wait Until Element Is Visible           xpath:(//button[text()='Add to cart'])[${random_index}]
-            # Validate product is removed from cart
-            Open Cart
-            Wait Until Element Is Visible           xpath://*[@class='title' and text()='Your Cart']
-            Element Should Not Be Visible           xpath://div[@class='inventory_item_name' and text()='${productname}']
-            Return to Shopping
-        END
-        Exit For Loop
-    END
-
-
 # This keyword is used to Remove a Product from the Shopping Cart
 Remove Product from Shopping Cart
     Open Cart
@@ -148,8 +111,38 @@ Remove Product from Shopping Cart
     Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Your Cart']
     Element Should Not Be Visible                   xpath://*[@class='inventory_item_name' and text()='${productname}']
     # Cross-check inventory page
-    Go To                                           https://www.saucedemo.com/inventory.html
-    Wait Until Element Is Visible                   xpath://div[@class='inventory_item' and .//div[text()='${productname}']]
-    Element Should Be Visible                       xpath://div[@class='inventory_item' and .//div[text()='${productname}']]//button[text()='Add to cart']
-    Capture Page Screenshot                         Product-${productname}_Removed_and_Inventory_Checked.png
     Return to Shopping
+    Wait Until Element Is Visible                   xpath://*[@class='inventory_item' and .//div[text()='${productname}']]
+    Element Should Be Visible                       xpath://*[@class='inventory_item' and .//div[text()='${productname}']]//button[text()='Add to cart']
+    Capture Page Screenshot                         Product-${productname}_Removed_and_Inventory_Checked.png
+
+
+# This keyword is used to Remove a from Shopping Page
+Remove Product from Shopping Page
+    Wait Until Element Is Visible                   xpath://*[@class='inventory_item']
+    # Count all products on the inventory page
+    ${total_products} =     Get Element Count       xpath://div[@class='inventory_item']
+    ${product_name} =       Set Variable            None
+    ${remove_btn} =         Set Variable            None
+    # Loop through all products
+    FOR    ${index}    IN RANGE    1    ${total_products + 1}
+        # Check if this product has a Remove button
+        ${has_removebtn} =     Run Keyword And Return Status
+        ...  Element Should Be Visible              xpath://*[@class='inventory_item'][${index}]//button[text()='Remove']
+        IF  ${has_removebtn}
+            # Capture the product name
+            ${product_name} =   Get Text            xpath://*[@class='inventory_item'][${index}]//*[@class='inventory_item_name ']
+            # Set the remove button for clicking
+            ${remove_btn} =     Set Variable        xpath://*[@class='inventory_item'][${index}]//*[text()='Remove']
+            # Click Remove button
+            Wait Until Element Is Visible           ${remove_btn}
+            Click Element                           ${remove_btn}
+            Sleep  0.5s
+            # Exit loop after first product removed
+            Exit For Loop
+        END
+    END
+    # Validate in the cart that the removed product is gone
+    Open Cart
+    Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Your Cart']
+    Element Should Not Be Visible                   xpath://div[@class='inventory_item_name' and text()='${product_name}']
