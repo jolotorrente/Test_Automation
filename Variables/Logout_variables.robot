@@ -1,8 +1,7 @@
 *** Variables ***
 #############################
-${SCREENSHOT_LOGOUT_DIR}         C:/Test_Automation/reports/screenshots/Logout
-${ERROR_LOCATOR}    xpath://*[@class='error-message-container error']
-
+${SCREENSHOT_LOGOUT_DIR}            C:/Test_Automation/reports/screenshots/Logout
+${ERROR_LOCATOR}                    xpath://*[@class='error-message-container error']
 
 
 ######################################
