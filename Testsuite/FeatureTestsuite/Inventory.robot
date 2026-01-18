@@ -25,20 +25,24 @@ Product-Intercation 01 - Validate Product Inventory Page Elements
     [Tags]  High
     User Login                  ${USERNAME}             ${PASSWORD}
     Validate Inventory Page Elements
+    User Logout
 
 Product-Intercation 02 - Add Product to Shopping Cart from the Shopping Page
     [Tags]  Medium
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
+    User Logout
 
  Product-Intercation 03 - Add Product from the Shopping Page and Remove Product from the Shopping Cart
     [Tags]  Medium
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
     Remove Product from Shopping Cart
+    User Logout
 
 Product-Intercation 04 - Add and Remove Product to Shopping Cart from the Shopping Page
     [Tags]  High
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
     Remove Product from Shopping Page
+    User Logout

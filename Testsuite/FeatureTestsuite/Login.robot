@@ -22,24 +22,25 @@ Test Teardown   Close All Browser
 *** Test Cases ***
 
 Login 01 - Login using valid Username and Password
-    [Tags]  High
-    User Login                  ${USERNAME}             ${PASSWORD}
+    [Tags]  High    Smoke
+    User Login                  ${USERNAME}         ${PASSWORD}
+    User Logout
 
 Login 02 - Negative Test: Login using valid Username Invalid Password
     [Tags]  Medium
-    User Login                  ${USERNAME}             ${INVALIDPASSWORD}
+    User Login                  ${USERNAME}         ${INVALIDPASSWORD}
 
 Login 03 - Negative Test: Login using Locked Out User
     [Tags]  Medium
-    User Login                  ${LOCKED_USERNAME}      ${PASSWORD}
+    User Login                  ${LOCKED_USERNAME}  ${PASSWORD}
 
 Login 04 - Negative Test: Login using Empty or Null Username
     [Tags]  Low
-    User Login                  ${NULL}                 ${PASSWORD}
+    User Login                  ${NULL}             ${PASSWORD}
 
 Login 05 - Negative Test: Login using Empty or Null Password
     [Tags]  Low
-    User Login                  ${USERNAME}             ${NULL}
+    User Login                  ${USERNAME}         ${NULL}
 
 Login 06 - Login Credentials should allow alphanumeric and special characters
     [Tags]  Low

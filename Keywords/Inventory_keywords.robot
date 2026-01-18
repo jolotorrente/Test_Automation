@@ -115,12 +115,13 @@ Remove Product from Shopping Cart
     Wait Until Element Is Visible                   xpath://*[@class='inventory_item' and .//div[text()='${productname}']]
     Element Should Be Visible                       xpath://*[@class='inventory_item' and .//div[text()='${productname}']]//button[text()='Add to cart']
     Capture Page Screenshot                         Product-${productname}_Removed_and_Inventory_Checked.png
+    Set Test Message                                ${productname} was removed from the cart
 
 
-# This keyword removes a random product from inventory and validates cart
+# This keyword removes a random product from Inventory page and validates Shopping Cart
 Remove Product from Shopping Page
     Wait Until Element Is Visible                   xpath://*[@class='inventory_item']
-    # Count all products on the inventory page
+    # Count all products on the Inventory page
     ${total_products} =         Get Element Count   xpath://*[@class='inventory_item']
     # Lists to store products with Remove buttons
     @{products_with_remove} =   Create List
@@ -147,13 +148,13 @@ Remove Product from Shopping Page
     ${selected_product} =       Set Variable        ${products_with_remove}[${rand_index}]
     ${selected_remove_btn} =    Set Variable        ${remove_btns}[${rand_index}]
     ${selected_add_btn} =       Set Variable        ${add_btns}[${rand_index}]
-    # Click Remove button
+    # Wait forthe Remove button to Appear then Select
     Wait Until Element Is Visible                   ${selected_remove_btn}
     Click Element                                   ${selected_remove_btn}
-    # Validate that Add button reappears
+    # Validate that 'Add to cart' button reappears
     Wait Until Element Is Visible                   ${selected_add_btn}
     # Validate in cart that the selected product is removed
     Open Cart
     Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Your Cart']
     Element Should Not Be Visible                   xpath://div[@class='inventory_item_name' and text()='${selected_product}']
-    Set Test Message                                ${selected_product} was the removed product
+    Set Test Message                                ${selected_product} was removed from the cart
