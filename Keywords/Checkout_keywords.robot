@@ -13,7 +13,7 @@ Resource        ../Variables/Checkout_variables.robot
 ## Keywords for Checkout ##
 ######################################
 
-#This Keyword is used to checkout current cart
+# This Keyword is used to checkout current cart
 Checkout Cart
     [Arguments]  ${firstname}   ${lastname}     ${postalcode}
 

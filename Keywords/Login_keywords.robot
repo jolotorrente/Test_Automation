@@ -2,6 +2,9 @@
 Library         PuppeteerLibrary
 Library         String
 
+### Resource List of Keywords ###
+Resource        ../Keywords/Global_keywords.robot
+
 ### Resource List of Variables ###
 Resource        ../Variables/Login_variables.robot
 
@@ -10,17 +13,11 @@ Resource        ../Variables/Login_variables.robot
 ## Login Component Keywords ##
 ##############################
 
-#This keyword is used to launch the Test Website (saucedemo.com)
-Launch Website
-    &{options} =  Create Dictionary                 headless=${HEADLESS}
-    Open Browser   ${TEST_URL}                      browser=${BROWSER}    options=${options}
-    Set Viewport Size                               1920    1080
-    Wait Until Element Is Visible                   xpath://*[@id='user-name']
 
 #This keyword is used to Login on the Test Website (saucedemo.com)
 User Login
     [Arguments]    ${username}    ${password}
-    Set Screenshot Directory                        ${SCREENSHOT_BASE_DIR}
+    Set Screenshot Directory                        ${SCREENSHOT_LOGIN_DIR}
     Input Text                                      xpath://*[@id='user-name']    ${username}
     Input Password                                  xpath://*[@id='password']     ${password}
     Click Element                                   xpath://*[@id='login-button']
@@ -39,20 +36,18 @@ Validate Login Page Elements
     ...    xpath://*[@id='user-name']
     ...    xpath://*[@id='password']
     ...    xpath://*[@id='login-button']
+
     FOR  ${elem}  IN  @{login_elements}
         Wait Until Element Is Visible               ${elem}
         Element Should Be Enabled                   ${elem}
     END
-
+    Wait Until Element Is Visible                   path://*[@class='login_logo']
     Element Text Should Be                          xpath://*[@class='login_logo']  Swag Labs
-
-    ${userlabel}=    Get Element Attribute          xpath://*[@id='user-name']      placeholder
+    ${userlabel} =          Get Element Attribute   xpath://*[@id='user-name']      placeholder
     Should Be Equal                                 ${userlabel}    Username
-
-    ${passlabel}=    Get Element Attribute          xpath://*[@id='password']       placeholder
+    ${passlabel} =          Get Element Attribute   xpath://*[@id='password']       placeholder
     Should Be Equal                                 ${passlabel}    Password
-
-    ${loginlabel}=    Get Element Attribute         xpath://*[@id='login-button']   value
+    ${loginlabel} =         Get Element Attribute   xpath://*[@id='login-button']   value
     Should Be Equal                                 ${loginlabel}   Login
 
 # Validate successful login
@@ -63,9 +58,10 @@ Validate Successful Login
     ...    xpath://*[@class='shopping_cart_link']
     ...    xpath://*[@class='product_sort_container']
     Wait Until Element Is Visible                   xpath://*[@class='app_logo' and text()='Swag Labs']
-    FOR  ${elem}  IN  @{expected_elements}
+    FOR     ${elem}     IN      @{expected_elements}
         Element Should Be Visible    ${elem}
     END
+
     Set Test Message    User was able login Successfully.    append=yes
 
 # Validate failed login
@@ -76,7 +72,7 @@ Validate Failed Login
     ...    emptyuser=Epic sadface: Username is required
     ...    emptypass=Epic sadface: Password is required
 
-    ${actualerror} =  Get Text                      xpath://*[@class='error-message-container error']
+    ${actualerror} =        Get Text                xpath://*[@class='error-message-container error']
 
     Run Keyword If    '${actualerror}' == '${errors["invalid"]}'    Validate Error Message      ${errors["invalid"]}
     ...    ELSE IF    '${actualerror}' == '${errors["locked"]}'     Validate Error Message      ${errors["locked"]}
@@ -105,3 +101,7 @@ Validate Input Fields
         Should Be Equal As Strings                  ${newinput}    ${testpassword}
         Clear Element Text                          xpath://*[@id='password']
     END
+
+
+#This keyword is used to Logout on the Test Website (saucedemo.com)
+User Logout

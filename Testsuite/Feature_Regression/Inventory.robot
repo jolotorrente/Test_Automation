@@ -21,23 +21,23 @@ Test Teardown   Close All Browser
 
 *** Test Cases ***
 
-#Product-Intercation 01 - Validate Product Inventory Page Elements
-#    [Tags]  High
-#    User Login                  ${USERNAME}             ${PASSWORD}
-#    Validate Inventory Page Elements
-#
-#Product-Intercation 02 - Add Random Products from the Product List to Shopping Cart
-#    [Tags]  High
-#    User Login                  ${USERNAME}             ${PASSWORD}
-#    Add Product to Cart
+Product-Intercation 01 - Validate Product Inventory Page Elements
+    [Tags]  High
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Validate Inventory Page Elements
 
-Product-Intercation 03 - Remove Product from the Shopping Page
+Product-Intercation 02 - Add Product from the Shopping Page
+    [Tags]  High
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Add Product to Cart
+
+Product-Intercation 03 - Add and Remove Product from the Shopping Page
     [Tags]  High
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
     Remove Product from Shopping Page
 
- Product-Intercation 04 - Remove Product from the Shopping Cart
+ Product-Intercation 4 - Add Product from the Shopping Page and Remove Product from the Shopping Cart
     [Tags]  High
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart

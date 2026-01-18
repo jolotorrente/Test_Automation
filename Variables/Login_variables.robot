@@ -3,7 +3,7 @@
 ${TEST_URL}                         https://www.saucedemo.com/
 ${BROWSER}                          chrome
 ${HEADLESS}                         ${False}
-${SCREENSHOT_BASE_DIR}              C:/Test_Automation/reports/screenshots/Login
+${SCREENSHOT_LOGIN_DIR}             C:/Test_Automation/reports/screenshots/Login
 
 
 ###########################
