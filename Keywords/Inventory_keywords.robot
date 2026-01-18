@@ -12,9 +12,9 @@ Resource        ../Variables/Inventory_variables.robot
 
 
 *** Keywords ***
-######################################
-## Keywords for Product Interaction ##
-######################################
+###################################################
+##  Inventory / Shopping Page Component Keywords ##
+###################################################
 
 # This keyword is used to Assert Login Page Elements
 Validate Inventory Page Elements

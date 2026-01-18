@@ -10,9 +10,9 @@ Resource        ../Keywords/Inventory_keywords.robot
 Resource        ../Variables/Checkout_variables.robot
 
 *** Keywords ***
-######################################
-## Keywords for Checkout ##
-######################################
+##################################
+##  Checkout Component Keywords ##
+##################################
 
 # This Keyword is used to checkout current cart
 Checkout Cart
@@ -22,6 +22,7 @@ Checkout Cart
     Validate Cart
     Supply User Information  ${firstname}    ${lastname}    ${postalcode}
     Finish Checkout
+
 
 # This keyword Validates the Gross Total of Products added to Cart by Adding the Prices of each Product
 Validate Cart
@@ -70,7 +71,7 @@ Finish Checkout
     ${summarytotal_text} =  Get Text                xpath://*[@class='summary_total_label']
     ${summary_total} =      Evaluate                float("${summarytotal_text}".split('$')[1])
     Log  Summary Total = ${summary_total}
-    # Assert totals From Cart + Tax == Checkout Summary Total
+    # Assert Final Total Amount by comparing Total From Cart + Tax and Checkout Summary Total
     Should Be Equal As Numbers                      ${nettotal}    ${summary_total}
     Click Element                                   xpath://*[@id='finish']
     Wait Until Element Is Visible                   xpath://*[@class='complete-header']

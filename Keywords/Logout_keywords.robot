@@ -10,9 +10,9 @@ Resource        ../Variables/Login_variables.robot
 Resource        ../Variables/Logout_variables.robot
 
 *** Keywords ***
-##############################
-## Login Component Keywords ##
-##############################
+###############################
+## Logout Component Keywords ##
+###############################
 
 
 # This keyword is used to Verify if User was Properly Logout on the Test Website (saucedemo.com)

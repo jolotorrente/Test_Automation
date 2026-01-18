@@ -10,9 +10,9 @@ Resource        ../Keywords/Logout_keywords.robot
 Resource        ../Variables/Login_variables.robot
 
 *** Keywords ***
-##############################
-## Login Component Keywords ##
-##############################
+######################################
+## Common Global Component Keywords ##
+######################################
 
 # This keyword is used to launch the Test Website (saucedemo.com)
 Launch Website
