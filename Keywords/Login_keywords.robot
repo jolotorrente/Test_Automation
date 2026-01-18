@@ -29,7 +29,7 @@ User Login
         Validate Failed Login
     END
 
-#This keyword is used to Validate that login page elements exist
+# This keyword is used to Validate that login page elements exist
 Validate Login Page Elements
     #List Variable for repeating xpaths
     ${login_elements} =  Create List
@@ -41,7 +41,7 @@ Validate Login Page Elements
         Wait Until Element Is Visible               ${elem}
         Element Should Be Enabled                   ${elem}
     END
-    Wait Until Element Is Visible                   path://*[@class='login_logo']
+    Wait Until Element Is Visible                   xpath://*[@class='login_logo']
     Element Text Should Be                          xpath://*[@class='login_logo']  Swag Labs
     ${userlabel} =          Get Element Attribute   xpath://*[@id='user-name']      placeholder
     Should Be Equal                                 ${userlabel}    Username
@@ -50,7 +50,8 @@ Validate Login Page Elements
     ${loginlabel} =         Get Element Attribute   xpath://*[@id='login-button']   value
     Should Be Equal                                 ${loginlabel}   Login
 
-# Validate successful login
+
+# This keyword is a sub-keyword helper and is used to Validate that user Log In was Successful
 Validate Successful Login
     ${expected_elements} =  Create List
     ...    xpath://*[@id='react-burger-menu-btn']
@@ -64,7 +65,7 @@ Validate Successful Login
 
     Set Test Message    User was able login Successfully.    append=yes
 
-# Validate failed login
+# This keyword is a sub-keyword helper and is used to Validate that user Log In was Unsuccessful
 Validate Failed Login
     &{errors} =  Create Dictionary
     ...    invalid=Epic sadface: Username and password do not match any user in this service
@@ -72,21 +73,30 @@ Validate Failed Login
     ...    emptyuser=Epic sadface: Username is required
     ...    emptypass=Epic sadface: Password is required
 
-    ${actualerror} =        Get Text                xpath://*[@class='error-message-container error']
+    ${actualerror} =    Get Text    xpath://*[@class='error-message-container error']
 
-    Run Keyword If    '${actualerror}' == '${errors["invalid"]}'    Validate Error Message      ${errors["invalid"]}
-    ...    ELSE IF    '${actualerror}' == '${errors["locked"]}'     Validate Error Message      ${errors["locked"]}
-    ...    ELSE IF    '${actualerror}' == '${errors["emptyuser"]}'  Validate Error Message      ${errors["emptyuser"]}
-    ...    ELSE IF    '${actualerror}' == '${errors["emptypass"]}'  Validate Error Message      ${errors["emptypass"]}
-    ...    ELSE                                                     Fail                        msg=Error Flow Not Yet Covered
+    ${matched} =    Set Variable    ${False}
+    FOR    ${key}    ${expected_error}    IN    &{errors}
+        IF    '${actualerror}' == '${expected_error}'
+            Validate Error Message    ${expected_error}
+            ${matched} =    Set Variable    ${True}
+            Exit For Loop
+        END
+    END
 
-# Helper for Validate Failed Login
+    IF    not ${matched}
+        Fail    Error Flow Not Yet Covered
+    END
+
+
+# This Keyword is a sub-keyword helper for Validate Failed Login
 Validate Error Message
     [Arguments]    ${message}
     Element Should Be Visible                       xpath://*[@class='error-message-container error']
     Element Should Contain                          xpath://*[@class='error-message-container error']    ${message}
 
-# Validate input fields accept valid characters
+
+# This Keyword is used to Validate input / text fields accept valid characters
 Validate Input Fields
     [Arguments]    @{input}
     FOR    ${newinput}    IN    @{input}
@@ -101,7 +111,3 @@ Validate Input Fields
         Should Be Equal As Strings                  ${newinput}    ${testpassword}
         Clear Element Text                          xpath://*[@id='password']
     END
-
-
-#This keyword is used to Logout on the Test Website (saucedemo.com)
-User Logout

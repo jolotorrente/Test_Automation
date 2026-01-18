@@ -2,6 +2,10 @@
 Library         PuppeteerLibrary
 Library         String
 
+### Resource List of Keywords ###
+Resource        ../Keywords/Login_keywords.robot
+Resource        ../Keywords/Logout_keywords.robot
+
 ### Resource List of Variables ###
 Resource        ../Variables/Login_variables.robot
 
@@ -20,18 +24,29 @@ Launch Website
 
 # This keyword is used to Logout on the Test Website (saucedemo.com)
 User Logout
-    Wait Until Element Is Visible                   xpath://*[@id='continue-shopping']
+    Wait Until Element Is Visible                   xpath://*[@class='app_logo']
+    Open Burger Menu
+    Click Element                                   xpath://*[@id='logout_sidebar_link']
+    Wait Until Element Is Visible                   xpath://*[@id='user-name']
+    Validate Successful Logout
 
 
 # This keyword is used to display Shopping Cart
 Open Cart
     #Build OpenCart button XPath
     Wait Until Element Is Visible                   xpath://*[@class='app_logo']
-    ${cart_btn} =         Set Variable              xpath://*[@id='shopping_cart_container']
+    ${cart_btn} =           Set Variable            xpath://*[@id='shopping_cart_container']
     Scroll Element Into View                        ${cart_btn}
     Wait Until Element Is Visible                   ${cart_btn}
     Click Element                                   ${cart_btn}
     Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Your Cart']
+
+
+# This keyqord is used to open the Burger Menu
+Open Burger Menu
+    Wait Until Element Is Visible                   xpath://*[@class='bm-burger-button']
+    Click Element                                   xpath://*[@class='bm-burger-button']
+    Wait Until Element is Visible                   xpath://*[@class='bm-menu']
 
 
 # This keyword is used to return from Shopping Cart to Shopping page

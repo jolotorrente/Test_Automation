@@ -19,8 +19,13 @@
 #
 #*** Test Cases ***
 #
-#Login 01 - Login using valid Username and Password
-#    [Tags]  High
+#End-to-End_Regression 01 - User Purchased Products
+#    [Tags]  High    Regression
 #    User Login                  ${USERNAME}             ${PASSWORD}
-
-
+#
+#End-to-End_Regression 02 - User Remove Products prior to Checkout and Payment
+#    [Tags]  High    Regression
+#    User Login                  ${USERNAME}             ${PASSWORD}
+#
+#End-to-End_Regression 03 - Retain Products added to Cart after Logout when User did not complete Checkout
+#    [Tags]  High    Regression

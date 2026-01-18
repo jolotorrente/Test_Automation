@@ -58,23 +58,23 @@ Add Product to Cart
     #Count the total Products in the Current Page
     Wait Until Element Is Visible                   xpath://div[@class='inventory_item']
     ${productcounter} =     Get Element Count       xpath://div[@class='inventory_item']
-    #Generate a random number how many products to add
+    # Generate a random number how many products to add
     ${productquantity} =    Evaluate                random.randint(1, ${productcounter})    random
     # Generate a list of unique random indexes
     ${add_indexes} =        Evaluate                list(range(1, ${productcounter}+1))    # list of all indexes
     ${random_indexes} =     Evaluate                random.sample(${add_indexes}, ${productquantity})    random
-    #Loop through each unique random indexes
+    # Loop through each unique random indexes
     FOR     ${index}    IN      @{random_indexes}
-        #Build Add to cart button XPath
+        # Build Add to cart button XPath
         ${add_btn} =        Set Variable            xpath://*[@class='inventory_item'][${index}]//*[text()='Add to cart']
-        #Get relativeproduct name  to the button
+        # Get relativeproduct name  to the button
         ${productname} =    Get Text                xpath://*[@class='inventory_item'][${index}]//*[@class='inventory_item_description']//*[@class='inventory_item_name ']
-        #Scroll until Add Button is Visible on the active screen
+        # Scroll until Add Button is Visible on the active screen
         Scroll Element Into View                    ${add_btn}
         Wait Until Element Is Visible               ${add_btn}
         Click Element                               ${add_btn}
         Sleep  1s
-        #Validate in Cart that Product was added
+        # Validate in Cart that Product was added
         Open Cart
         Sleep  1s
         Wait Until Element Is Visible               xpath://*[@class='title' and text()='Your Cart']
@@ -83,7 +83,7 @@ Add Product to Cart
         Capture Page Screenshot                     Product-${productname}_Added to Cart.png
         Return to Shopping
     END
-    #Validate Final cart badge
+    # Validate Final Cart Badge
     Wait Until Element Is Visible                   xpath://span[@class='shopping_cart_badge']
     ${cartcounter} =        Get Text                xpath://span[@class='shopping_cart_badge']
     Should Be Equal As Integers                     ${cartcounter}    ${productquantity}
