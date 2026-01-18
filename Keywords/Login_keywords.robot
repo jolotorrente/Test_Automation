@@ -13,22 +13,6 @@ Resource        ../Variables/Login_variables.robot
 ## Login Component Keywords ##
 ##############################
 
-
-#This keyword is used to Login on the Test Website (saucedemo.com)
-User Login
-    [Arguments]    ${username}    ${password}
-    Set Screenshot Directory                        ${SCREENSHOT_LOGIN_DIR}
-    Input Text                                      xpath://*[@id='user-name']    ${username}
-    Input Password                                  xpath://*[@id='password']     ${password}
-    Click Element                                   xpath://*[@id='login-button']
-    ${loginstatus} =  Run Keyword And Return Status
-    ...  Element Should Be Visible                  xpath://*[@class='app_logo' and text()='Swag Labs']
-    IF    ${loginstatus}
-        Validate Successful Login
-    ELSE
-        Validate Failed Login
-    END
-
 # This keyword is used to Validate that login page elements exist
 Validate Login Page Elements
     # List Variable for repeating xpaths
