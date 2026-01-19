@@ -53,8 +53,26 @@ Checkout 05 - Negative Test: Checkout without Postal Code
     Add Product to Cart
     Checkout Cart               ${FIRST_NAME}       ${LAST_NAME}        ${MY_LIST}
 
-Checkout 06 - Validate Checkout: User Information Page Elements
+Checkout 06 - Negative Test: Checkout with only First Name
     [Tags]  Low
+    User Login                  ${USERNAME}         ${PASSWORD}
+    Add Product to Cart
+    Checkout Cart               ${FIRST_NAME}       ${MY_LIST}          ${MY_LIST}
+
+Checkout 07 - Negative Test: Checkout with only Last Name
+    [Tags]  Low
+    User Login                  ${USERNAME}         ${PASSWORD}
+    Add Product to Cart
+    Checkout Cart               ${MY_LIST}          ${LAST_NAME}        ${MY_LIST}
+
+Checkout 08 - Negative Test: Checkout with only Postal Code
+    [Tags]  Low
+    User Login                  ${USERNAME}         ${PASSWORD}
+    Add Product to Cart
+    Checkout Cart               ${MY_LIST}          ${MY_LIST}          ${POSTAL_CODE}
+
+Checkout 09 - Validate Checkout: User Information Page Elements
+    [Tags]  Low     Smoke
     User Login                  ${USERNAME}         ${PASSWORD}
     Add Product to Cart
     Validate User Information Page Elements

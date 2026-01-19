@@ -1,6 +1,6 @@
 *** Variables ***
 #############################
-${SCREENSHOT_CHECKOUT_DIR}      C:/Test_Automation/reports/screenshots/Products
+${SCREENSHOT_CHECKOUT_DIR}      C:/Test_Automation/reports/screenshots/Checkout
 
 #Variables User Information for Checkout: Your Information page
 @{FIRST_NAME}                   Leni    Bam    Rodrigo    Bongbong    Raffy

@@ -27,7 +27,7 @@ Login 01 - Login using valid Username and Password
     User Logout
 
 Login 02 - Negative Test: Login using valid Username Invalid Password
-    [Tags]  Medium
+    [Tags]  Medium  Smoke
     User Login                  ${USERNAME}         ${INVALIDPASSWORD}
 
 Login 03 - Negative Test: Login using Locked Out User

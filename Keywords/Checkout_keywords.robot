@@ -20,10 +20,17 @@ Checkout Cart
     Set Screenshot Directory        ${SCREENSHOT_CHECKOUT_DIR}
     Open Cart
     Validate Cart
-    Scroll Element Into View                        xpath://*[@id='checkout' and text()='Checkout']
-    Click Button                                    xpath://*[@id='checkout' and text()='Checkout']
+    Initiate Checkout
     Supply User Information  ${firstname}    ${lastname}    ${postalcode}
     Finish Checkout
+
+
+# This Keyword is used to checkout current cart
+Initiate Checkout
+    # Build Add to cart button XPath
+    ${checkout_btn} =       Set Variable            xpath://*[@id='checkout' and text()='Checkout']
+    Scroll Element Into View                        ${checkout_btn}
+    Click Button                                    ${checkout_btn}
 
 
 # This keyword Validates the Gross Total of Products added to Cart by Adding the Prices of each Product
@@ -83,7 +90,7 @@ Validate Complete User Information
 Validate Incomplete User Information Error
     Click Element                                   xpath://*[@id='continue']
     # Get the actual error message displayed on the UI
-    ${actual_error}=       Get Text                xpath://*[@class='error-message-container error']
+    ${actual_error}=        Get Text                xpath://*[@class='error-message-container error']
     # Loop through expected checkout error messages
     FOR    ${expected_error}    IN    @{USERINFOCHECKOUTERROR}
         IF    '${actual_error}' == '${expected_error}'
@@ -123,28 +130,29 @@ Finish Checkout
 
 # This keyword Validates existence of Checkout: User Information page elements
 Validate User Information Page Elements
+    Set Screenshot Directory        ${SCREENSHOT_CHECKOUT_DIR}
     Open Cart
+    Initiate Checkout
     # List Variable for repeating xpaths
-    ${login_elements} =  Create List
-    ...    xpath://*[@id='user-name']
-    ...    xpath://*[@id='password']
-    ...    xpath://*[@id='login-button']
-    FOR  ${elem}  IN  @{login_elements}
-        Wait Until Element Is Visible                   ${elem}
-        Element Should Be Enabled                       ${elem}
-        # Validate empty value for input fields only
-        IF  '${elem}' != 'xpath://*[@id='login-button']'
-                ${value} =    Get Element Attribute     ${elem}     value
-                Should Be Empty                         ${value}
-        END
+    @{userinfo_elem} =  Create List
+    ...    xpath://*[@id='first-name']
+    ...    xpath://*[@id='last-name']
+    ...    xpath://*[@id='postal-code']
+    FOR    ${elem}    IN    @{userinfo_elem}
+        Wait Until Element Is Visible               ${elem}
+        Element Should Be Enabled                   ${elem}
+        ${elemvalue}=    Get Value                  ${elem}
+        Should Be Empty                             ${elemvalue}
     END
-    Wait Until Element Is Visible                   xpath://*[@class='login_logo']
-    Element Text Should Be                          xpath://*[@class='login_logo']  Swag Labs
-    ${userlabel} =          Get Element Attribute   xpath://*[@id='user-name']      placeholder
-    Should Be Equal                                 ${userlabel}    Username
-    ${passlabel} =          Get Element Attribute   xpath://*[@id='password']       placeholder
-    Should Be Equal                                 ${passlabel}    Password
-    ${loginlabel} =         Get Element Attribute   xpath://*[@id='login-button']   value
-    Should Be Equal                                 ${loginlabel}   Login
-
-
+    # Placeholder validations
+    ${fname_label} =        Get Element Attribute   ${userinfo_elem}[0]         placeholder
+    Should Be Equal                                 ${fname_label}              First Name
+    ${lname_label} =        Get Element Attribute   ${userinfo_elem}[1]         placeholder
+    Should Be Equal                                 ${lname_label}              Last Name
+    ${zip_label} =          Get Element Attribute   ${userinfo_elem}[2]         placeholder
+    Should Be Equal                                 ${zip_label}                Zip/Postal Code
+    # Page-level validation
+    Element Should Be Visible                       xpath://*[@class='title']
+    Element Text Should Be                          xpath://*[@class='title']   Checkout: Your Information
+    Element Should Be Visible                       xpath://*[@id='cancel']
+    Element Text Should Be                          xpath://*[@id='cancel']     Cancel

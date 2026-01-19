@@ -25,13 +25,13 @@ Test Teardown   Close All Browser
 *** Test Cases ***
 
 Logout 01 - Logout to Website After Successful Login
-    [Tags]  High        Regression      Security
+    [Tags]  High    Regression      Security    Smoke
     User Login                  ${USERNAME}             ${PASSWORD}
     User Logout
 
 
 Logout 02 - Logged In Pages Not Accessible After Logout
-    [Tags]  High        Regression      Security
+    [Tags]  High    Regression      Security
     User Login                  ${USERNAME}             ${PASSWORD}
     User Logout
     Validate Secured Pages after Logout

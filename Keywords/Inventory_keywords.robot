@@ -85,7 +85,7 @@ Add Product to Cart
     Validate Final Cart Badge
 
 
-
+# This keyword Validates Cart Quantity
 Validate Final Cart Badge
     Wait Until Element Is Visible                   xpath://span[@class='shopping_cart_badge']
     ${cartcounter} =        Get Text                xpath://span[@class='shopping_cart_badge']

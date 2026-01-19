@@ -29,9 +29,12 @@ End-to-End_Regression 01 - User to Purchase Products added to Cart
     Checkout Cart               ${FIRST_NAME}       ${LAST_NAME}        ${POSTAL_CODE}
     User Logout
 
-#End-to-End_Regression 02 - User to Remove Products prior to Checkout and Payment
-#    [Tags]  High    Regression
-#    User Login                  ${USERNAME}             ${PASSWORD}
+End-to-End_Regression 02 - User to Remove Products prior to Checkout and Payment
+    [Tags]  High    Regression
+    User Login                  ${USERNAME}         ${PASSWORD}
+    Add Product to Cart
+    Checkout Cart               ${FIRST_NAME}       ${LAST_NAME}        ${POSTAL_CODE}
+    User Logout
 
 #End-to-End_Regression 03 - Retain Products added to Cart after Logout when User did not complete Checkout
 #    [Tags]  High    Regression
