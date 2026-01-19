@@ -20,6 +20,8 @@ Checkout Cart
     Set Screenshot Directory        ${SCREENSHOT_CHECKOUT_DIR}
     Open Cart
     Validate Cart
+    Scroll Element Into View                        xpath://*[@id='checkout' and text()='Checkout']
+    Click Button                                    xpath://*[@id='checkout' and text()='Checkout']
     Supply User Information  ${firstname}    ${lastname}    ${postalcode}
     Finish Checkout
 
@@ -38,26 +40,68 @@ Validate Cart
         ${total} =          Evaluate                ${total} + ${price}
         Set Test Variable    ${total}
     END
-    Scroll Element Into View                        xpath://*[@id='checkout' and text()='Checkout']
-    Click Button                                    xpath://*[@id='checkout' and text()='Checkout']
+    Sleep    1s
 
 
-# This keyword fills the checkout form with random names and postal code
+# This keyword Completes the Checkout form with random names and postal code from a List Variable
+# List Variable is declared on Checkout_variables.robot
 Supply User Information
     [Arguments]    ${firstname}    ${lastname}    ${postalcode}
     Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Checkout: Your Information']
     # Pick random values from the lists
     ${firstname} =          Evaluate                random.choice(@{FIRST_NAME})    random
+    Set Test Variable    ${firstname}
     ${lastname} =           Evaluate                random.choice(@{LAST_NAME})     random
+    Set Test Variable    ${lastname}
     ${postalcode} =         Evaluate                random.choice(@{POSTAL_CODE})   random
+    Set Test Variable    ${postalcode}
     # Fill checkout fields with the randomly chosen values
     Input Text                                      xpath://*[@id='first-name']    ${firstname}
     Input Text                                      xpath://*[@id='last-name']     ${lastname}
     Input Text                                      xpath://*[@id='postal-code']   ${postalcode}
+    # Check if all three input values are NOT empty
+    IF    '${firstname}' != '' and '${lastname}' != '' and '${postalcode}' != ''
+        Validate Complete User Information
+    ELSE
+        Validate Incomplete User Information Error
+    END
+
+
+# This keyword Validates User Information supplied and Completes the Step 1: User Information of Checkout
+Validate Complete User Information
+    ${textfirst} =          Get Value               xpath://*[@id='first-name']
+    Should Be Equal As Strings                      ${firstname}    ${textfirst}
+    ${textlast} =           Get Value               xpath://*[@id='last-name']
+    Should Be Equal As Strings                      ${lastname}     ${textlast}
+    ${textpostal} =         Get Value               xpath://*[@id='postal-code']
+    Should Be Equal As Strings                      ${postalcode}   ${textpostal}
+    Sleep   1s
     Click Element                                   xpath://*[@id='continue']
 
 
-# This keyword is used to Complete the Checkout Process After User Information has been Supplied
+# This keyword Validates error handling on supplied User Information
+Validate Incomplete User Information Error
+    Click Element                                   xpath://*[@id='continue']
+    # Get the actual error message displayed on the UI
+    ${actual_error}=       Get Text                xpath://*[@class='error-message-container error']
+    # Loop through expected checkout error messages
+    FOR    ${expected_error}    IN    @{USERINFOCHECKOUTERROR}
+        IF    '${actual_error}' == '${expected_error}'
+            # Expected error encountered – validation passes
+            Element Should Be Visible               xpath://*[@class='error-message-container error']
+            Element Should Contain                  xpath://*[@class='error-message-container error']    ${expected_error}
+            ${matched} =    Set Variable            ${True}
+            User Logout
+            Pass Execution                          Error Occurred: ${actual_error} Has Been Validated. Expected Error In Negative Tests
+        END
+    END
+    #Fallout IF Statement if the Error Message encountered was not defined the List Variable
+    IF    not ${matched}
+        Fail                    Error Flow Not Yet Covered. Please create a New Test Case for Uncovered Error Message
+    END
+
+
+# This keyword Completes the Checkout Process After User Information has been Supplied
 Finish Checkout
     Wait Until Element Is Visible                   xpath://*[@id='finish']
     # Get tax and convert to float
@@ -75,3 +119,32 @@ Finish Checkout
     Should Be Equal As Numbers                      ${nettotal}    ${summary_total}
     Click Element                                   xpath://*[@id='finish']
     Wait Until Element Is Visible                   xpath://*[@class='complete-header']
+
+
+# This keyword Validates existence of Checkout: User Information page elements
+Validate User Information Page Elements
+    Open Cart
+    # List Variable for repeating xpaths
+    ${login_elements} =  Create List
+    ...    xpath://*[@id='user-name']
+    ...    xpath://*[@id='password']
+    ...    xpath://*[@id='login-button']
+    FOR  ${elem}  IN  @{login_elements}
+        Wait Until Element Is Visible                   ${elem}
+        Element Should Be Enabled                       ${elem}
+        # Validate empty value for input fields only
+        IF  '${elem}' != 'xpath://*[@id='login-button']'
+                ${value} =    Get Element Attribute     ${elem}     value
+                Should Be Empty                         ${value}
+        END
+    END
+    Wait Until Element Is Visible                   xpath://*[@class='login_logo']
+    Element Text Should Be                          xpath://*[@class='login_logo']  Swag Labs
+    ${userlabel} =          Get Element Attribute   xpath://*[@id='user-name']      placeholder
+    Should Be Equal                                 ${userlabel}    Username
+    ${passlabel} =          Get Element Attribute   xpath://*[@id='password']       placeholder
+    Should Be Equal                                 ${passlabel}    Password
+    ${loginlabel} =         Get Element Attribute   xpath://*[@id='login-button']   value
+    Should Be Equal                                 ${loginlabel}   Login
+
+

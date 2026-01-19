@@ -22,14 +22,14 @@ Test Teardown   Close All Browser
 
 
 *** Test Cases ***
-End-to-End_Regression 01 - User Purchased Products added to Cart
+End-to-End_Regression 01 - User to Purchase Products added to Cart
     [Tags]  High    Regression
     User Login                  ${USERNAME}         ${PASSWORD}
     Add Product to Cart
     Checkout Cart               ${FIRST_NAME}       ${LAST_NAME}        ${POSTAL_CODE}
     User Logout
 
-#End-to-End_Regression 02 - User Remove Products prior to Checkout and Payment
+#End-to-End_Regression 02 - User to Remove Products prior to Checkout and Payment
 #    [Tags]  High    Regression
 #    User Login                  ${USERNAME}             ${PASSWORD}
 

@@ -22,7 +22,7 @@ Test Teardown   Close All Browser
 *** Test Cases ***
 
 Product-Intercation 01 - Validate Product Inventory Page Elements
-    [Tags]  High
+    [Tags]  Low    Smoke
     User Login                  ${USERNAME}             ${PASSWORD}
     Validate Inventory Page Elements
     User Logout

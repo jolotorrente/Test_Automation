@@ -30,14 +30,16 @@ Validate Successful Logout
     END
     # This will try to Navigate Back on the previous page, which was a Logged In State, using a Javascript
     Execute Javascript      window.history.back()
+    # Build Error Message Container XPath
+    ${errorcontainer} =         Set Variable        xpath://*[@class='error-message-container error']
     # Verify that Error Occured that user can only access previous page when you are logged in
-    Element Should Be Visible                       xpath://*[@class='error-message-container error']
-    ${actualerror} =        Get Text                xpath://*[@class='error-message-container error']
-    Element Text Should Be                          xpath://*[@class='error-message-container error']       ${actualerror}
+    Element Should Be Visible                       ${errorcontainer}
+    ${actualerror} =            Get Text            ${errorcontainer}
+    Element Text Should Be                          ${errorcontainer}       ${actualerror}
     Reload Page
-    Element Should Be Visible                       xpath://*[@class='error-message-container error']
-    ${actualerror} =        Get Text                xpath://*[@class='error-message-container error']
-    Element Text Should Be                          xpath://*[@class='error-message-container error']       ${actualerror}
+    Element Should Be Visible                       ${errorcontainer}
+    ${actualerror} =            Get Text            ${errorcontainer}
+    Element Text Should Be                          ${errorcontainer}       ${actualerror}
 
 
 # This keyword is used to Verify if User was Properly Logout on the Test Website (saucedemo.com)

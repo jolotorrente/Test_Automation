@@ -47,5 +47,5 @@ Login 06 - Login Credentials should allow alphanumeric and special characters
     Validate Input Fields       ${INPUT_VALIDATION}
 
 Login 07 - Validate Login Page Elements
-    [Tags]  Low
+    [Tags]  Low     Smoke
     Validate Login Page Elements

@@ -60,6 +60,7 @@ Add Product to Cart
     ${productcounter} =     Get Element Count       xpath://div[@class='inventory_item']
     # Generate a random number how many products to add
     ${productquantity} =    Evaluate                random.randint(1, ${productcounter})    random
+    Set Test Variable       ${productquantity}
     # Generate a list of unique random indexes
     ${add_indexes} =        Evaluate                list(range(1, ${productcounter}+1))    # list of all indexes
     ${random_indexes} =     Evaluate                random.sample(${add_indexes}, ${productquantity})    random
@@ -81,13 +82,17 @@ Add Product to Cart
         Capture Page Screenshot                     Product-${productname}_Added to Cart.png
         Return to Shopping
     END
-    # Validate Final Cart Badge
+    Validate Final Cart Badge
+
+
+
+Validate Final Cart Badge
     Wait Until Element Is Visible                   xpath://span[@class='shopping_cart_badge']
     ${cartcounter} =        Get Text                xpath://span[@class='shopping_cart_badge']
     Should Be Equal As Integers                     ${cartcounter}    ${productquantity}
 
 
-# This keyword is used to Remove a Product from the Shopping Cart
+# This keyword Removes a random Product from the Shopping Cart
 Remove Product from Shopping Cart
     Open Cart
     Wait Until Element Is Visible                   xpath://*[@class='cart_list']//*[text()='Remove']
@@ -118,7 +123,7 @@ Remove Product from Shopping Cart
     Set Test Message                                ${productname} was removed from the cart
 
 
-# This keyword removes a random product from Inventory page and validates Shopping Cart
+# This keyword Removes a random product from Inventory page and validates Shopping Cart
 Remove Product from Shopping Page
     Wait Until Element Is Visible                   xpath://*[@class='inventory_item']
     # Count all products on the Inventory page
