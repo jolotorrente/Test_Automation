@@ -14,7 +14,7 @@ Type of Website: E-Commerce
 
 Current Statistics, Coverage and Structure as of 20 Jan 2026:
 Total Test Cases: 24
-Execution Time: 00H:01M:37S
+Execution Time: 00h:01m:37s
 
 Test Cases according to Priority [24 Test Cases]
 High: 8
