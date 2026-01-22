@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.10.11 on win32)" generated="2026-01-22T15:48:44.340294" rpa="false" schemaversion="5">
+<suite id="s1" name="Inventory" source="C:\Test_Automation\Testsuite\FeatureTestsuite\Inventory.robot">
+<test id="s1-t1" name="Inventory 06 - Validate Cart Default State" line="56">
+<kw name="Launch Website" owner="Global_keywords" type="SETUP">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-22T15:48:44.682254" level="INFO">&amp;{options} = { headless=False }</msg>
+<var>&amp;{options}</var>
+<arg>headless=${HEADLESS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-22T15:48:44.681749" elapsed="0.006098"/>
+</kw>
+<kw name="Open Browser" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:44.688852" level="INFO">https://www.saucedemo.com/</msg>
+<arg>${TEST_URL}</arg>
+<arg>browser=${BROWSER}</arg>
+<arg>options=${options}</arg>
+<doc>Opens a new browser instance to the specific ``url``.</doc>
+<status status="PASS" start="2026-01-22T15:48:44.688852" elapsed="3.979998"/>
+</kw>
+<kw name="Set View Port Size" owner="PuppeteerLibrary">
+<arg>1920</arg>
+<arg>1080</arg>
+<status status="PASS" start="2026-01-22T15:48:48.668850" elapsed="0.015451"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@id='user-name']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.684301" elapsed="0.030721"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:44.680744" elapsed="4.034278"/>
+</kw>
+<kw name="User Login" owner="Global_keywords">
+<kw name="Set Screenshot Directory" owner="PuppeteerLibrary">
+<arg>${SCREENSHOT_LOGIN_DIR}</arg>
+<status status="PASS" start="2026-01-22T15:48:48.716734" elapsed="0.000535"/>
+</kw>
+<kw name="Input Text" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:48.717758" level="INFO">Typing text 'standard_user' into text field 'xpath://*[@id='user-name']'.</msg>
+<arg>xpath://*[@id='user-name']</arg>
+<arg>${username}</arg>
+<doc>Types the given text into text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.717269" elapsed="0.093775"/>
+</kw>
+<kw name="Input Password" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:48.812035" level="INFO">Typing password into text field 'xpath://*[@id='password']'.</msg>
+<arg>xpath://*[@id='password']</arg>
+<arg>${password}</arg>
+<doc>Types the given text into text field same as ``Input Text`` Keyword.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.811538" elapsed="0.059062"/>
+</kw>
+<kw name="Click Element" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:48.870600" level="INFO">Clicking element 'xpath://*[@id='login-button']'.</msg>
+<arg>xpath://*[@id='login-button']</arg>
+<doc>Clicks element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.870600" elapsed="0.060724"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='app_logo' and text()='Swag Labs']</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.932354" elapsed="0.010694"/>
+</kw>
+<msg time="2026-01-22T15:48:48.943048" level="INFO">${loginstatus} = True</msg>
+<var>${loginstatus}</var>
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@class='app_logo' and text()='Swag Labs']</arg>
+<doc>Runs the specified keyword and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.931324" elapsed="0.011724"/>
+</kw>
+<if>
+<branch type="IF" condition="${loginstatus}">
+<kw name="Validate Successful Login" owner="Login_keywords">
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-01-22T15:48:48.944678" level="INFO">${expected_elements} = ["xpath://*[@id='react-burger-menu-btn']", "xpath://*[@class='title' and text()='Products']", "xpath://*[@class='shopping_cart_link']", "xpath://*[@class='product_sort_container']"]</msg>
+<var>${expected_elements}</var>
+<arg>xpath://*[@id='react-burger-menu-btn']</arg>
+<arg>xpath://*[@class='title' and text()='Products']</arg>
+<arg>xpath://*[@class='shopping_cart_link']</arg>
+<arg>xpath://*[@class='product_sort_container']</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.944163" elapsed="0.000515"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='app_logo' and text()='Swag Labs']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.945177" elapsed="0.010185"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.955873" elapsed="0.007089"/>
+</kw>
+<var name="${elem}">xpath://*[@id='react-burger-menu-btn']</var>
+<status status="PASS" start="2026-01-22T15:48:48.955873" elapsed="0.007089"/>
+</iter>
+<iter>
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.963336" elapsed="0.009621"/>
+</kw>
+<var name="${elem}">xpath://*[@class='title' and text()='Products']</var>
+<status status="PASS" start="2026-01-22T15:48:48.963336" elapsed="0.009621"/>
+</iter>
+<iter>
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.973467" elapsed="0.006589"/>
+</kw>
+<var name="${elem}">xpath://*[@class='shopping_cart_link']</var>
+<status status="PASS" start="2026-01-22T15:48:48.972957" elapsed="0.007099"/>
+</iter>
+<iter>
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.980571" elapsed="0.008731"/>
+</kw>
+<var name="${elem}">xpath://*[@class='product_sort_container']</var>
+<status status="PASS" start="2026-01-22T15:48:48.980056" elapsed="0.009246"/>
+</iter>
+<var>${elem}</var>
+<value>@{expected_elements}</value>
+<status status="PASS" start="2026-01-22T15:48:48.955362" elapsed="0.033940"/>
+</for>
+<kw name="Set Test Message" owner="BuiltIn">
+<msg time="2026-01-22T15:48:48.990322" level="INFO">Set test message to:
+User was able login Successfully.</msg>
+<arg>User was able login Successfully.</arg>
+<arg>append=yes</arg>
+<doc>Sets message for the current test case.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.989827" elapsed="0.000495"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:48.943649" elapsed="0.046673"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:48.943649" elapsed="0.046673"/>
+</branch>
+<branch type="ELSE">
+<kw name="Validate Failed Login" owner="Login_keywords">
+<status status="NOT RUN" start="2026-01-22T15:48:48.990322" elapsed="0.000000"/>
+</kw>
+<status status="NOT RUN" start="2026-01-22T15:48:48.990322" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2026-01-22T15:48:48.943649" elapsed="0.046673"/>
+</if>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+<status status="PASS" start="2026-01-22T15:48:48.716016" elapsed="0.274306"/>
+</kw>
+<kw name="Validate Cart Badge" owner="Inventory_keywords">
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='shopping_cart_link']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:48.991328" elapsed="0.009920"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<kw name="Capture Page Screenshot" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:49.259884" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="reports/screenshots/Login/puppeteer-screenshot-25.png"&gt;&lt;img src="reports/screenshots/Login/puppeteer-screenshot-25.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Capture current web page as image png file.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.121241" elapsed="0.138643"/>
+</kw>
+<msg time="2026-01-22T15:48:49.260430" level="FAIL">Element 'xpath://*[@class='shopping_cart_badge']' is not be visible. </msg>
+<arg>xpath://*[@class='shopping_cart_badge']</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="FAIL" start="2026-01-22T15:48:49.001751" elapsed="0.259693">Element 'xpath://*[@class='shopping_cart_badge']' is not be visible. </status>
+</kw>
+<msg time="2026-01-22T15:48:49.261444" level="INFO">${cartstatus} = False</msg>
+<var>${cartstatus}</var>
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@class='shopping_cart_badge']</arg>
+<doc>Runs the specified keyword and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.001751" elapsed="0.259693"/>
+</kw>
+<if>
+<branch type="IF" condition="${cartstatus} == True">
+<kw name="Get Text" owner="PuppeteerLibrary">
+<var>${cartcounter}</var>
+<arg>xpath://*[@class='shopping_cart_badge']</arg>
+<doc>Returns text value of element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-01-22T15:48:49.262486" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${cartcounter}</arg>
+<arg>${rdmquantity}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-01-22T15:48:49.262486" elapsed="0.000521"/>
+</kw>
+<status status="NOT RUN" start="2026-01-22T15:48:49.262486" elapsed="0.000521"/>
+</branch>
+<branch type="ELSE">
+<kw name="Shopping Cart Default State" owner="Inventory_keywords">
+<kw name="Open Cart" owner="Global_keywords">
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='app_logo']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.263408" elapsed="0.006875"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-22T15:48:49.271317" level="INFO">${cart_btn} = xpath://*[@id='shopping_cart_container']</msg>
+<var>${cart_btn}</var>
+<arg>xpath://*[@id='shopping_cart_container']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.271317" elapsed="0.000000"/>
+</kw>
+<kw name="Scroll Element Into View" owner="PuppeteerLibrary">
+<arg>${cart_btn}</arg>
+<doc>Scroll element into view</doc>
+<status status="PASS" start="2026-01-22T15:48:49.271317" elapsed="0.026092"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>${cart_btn}</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.297409" elapsed="0.007772"/>
+</kw>
+<kw name="Click Element" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:49.306893" level="INFO">Clicking element 'xpath://*[@id='shopping_cart_container']'.</msg>
+<arg>${cart_btn}</arg>
+<doc>Clicks element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.305901" elapsed="0.032306"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='title' and text()='Your Cart']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.338207" elapsed="0.007810"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:49.263408" elapsed="0.083183"/>
+</kw>
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='title' and text()='Your Cart']</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.346591" elapsed="0.008644"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:49.263007" elapsed="0.092775"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:49.263007" elapsed="0.092775"/>
+</branch>
+<status status="PASS" start="2026-01-22T15:48:49.261444" elapsed="0.094338"/>
+</if>
+<status status="PASS" start="2026-01-22T15:48:48.991328" elapsed="0.364454"/>
+</kw>
+<kw name="User Logout" owner="Global_keywords">
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='app_logo']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.356799" elapsed="0.006494"/>
+</kw>
+<kw name="Open Burger Menu" owner="Global_keywords">
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='bm-burger-button']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.364308" elapsed="0.005447"/>
+</kw>
+<kw name="Click Element" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:49.370467" level="INFO">Clicking element 'xpath://*[@class='bm-burger-button']'.</msg>
+<arg>xpath://*[@class='bm-burger-button']</arg>
+<doc>Clicks element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.370467" elapsed="0.031846"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='bm-menu']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.403262" elapsed="0.006653"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:49.363797" elapsed="0.046118"/>
+</kw>
+<kw name="Click Element" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:49.410411" level="INFO">Clicking element 'xpath://*[@id='logout_sidebar_link']'.</msg>
+<arg>xpath://*[@id='logout_sidebar_link']</arg>
+<doc>Clicks element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-22T15:48:49.410411" elapsed="0.852935"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@id='user-name']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.263346" elapsed="0.006152"/>
+</kw>
+<kw name="Validate Successful Logout" owner="Logout_keywords">
+<kw name="Set Screenshot Directory" owner="PuppeteerLibrary">
+<arg>${SCREENSHOT_LOGOUT_DIR}</arg>
+<status status="PASS" start="2026-01-22T15:48:50.270003" elapsed="0.000534"/>
+</kw>
+<kw name="Validate Login Page Elements" owner="Login_keywords">
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-01-22T15:48:50.271528" level="INFO">${login_elements} = ["xpath://*[@id='user-name']", "xpath://*[@id='password']", "xpath://*[@id='login-button']"]</msg>
+<var>${login_elements}</var>
+<arg>xpath://*[@id='user-name']</arg>
+<arg>xpath://*[@id='password']</arg>
+<arg>xpath://*[@id='login-button']</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.271031" elapsed="0.000497"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.272583" elapsed="0.007205"/>
+</kw>
+<kw name="Element Should Be Enabled" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is enabled.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.280360" elapsed="0.021221"/>
+</kw>
+<var name="${elem}">xpath://*[@id='user-name']</var>
+<status status="PASS" start="2026-01-22T15:48:50.271528" elapsed="0.030053"/>
+</iter>
+<iter>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.301581" elapsed="0.007756"/>
+</kw>
+<kw name="Element Should Be Enabled" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is enabled.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.310267" elapsed="0.036408"/>
+</kw>
+<var name="${elem}">xpath://*[@id='password']</var>
+<status status="PASS" start="2026-01-22T15:48:50.301581" elapsed="0.045589"/>
+</iter>
+<iter>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.347690" elapsed="0.008917"/>
+</kw>
+<kw name="Element Should Be Enabled" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is enabled.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.357103" elapsed="0.019070"/>
+</kw>
+<var name="${elem}">xpath://*[@id='login-button']</var>
+<status status="PASS" start="2026-01-22T15:48:50.347170" elapsed="0.029772"/>
+</iter>
+<var>${elem}</var>
+<value>@{login_elements}</value>
+<status status="PASS" start="2026-01-22T15:48:50.271528" elapsed="0.105414"/>
+</for>
+<kw name="Wait Until Element Is Visible" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='login_logo']</arg>
+<doc>Waits until ``locator`` element is displayed on web page.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.377452" elapsed="0.007283"/>
+</kw>
+<kw name="Element Text Should Be" owner="PuppeteerLibrary">
+<arg>xpath://*[@class='login_logo']</arg>
+<arg>Swag Labs</arg>
+<doc>Verifies that element locator contains exact the text `expected`.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.385258" elapsed="0.024289"/>
+</kw>
+<kw name="Get Element Attribute" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:50.442122" level="INFO">${userlabel} = Username</msg>
+<var>${userlabel}</var>
+<arg>xpath://*[@id='user-name']</arg>
+<arg>placeholder</arg>
+<doc>Return the value of ``attribute`` from the element.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.410539" elapsed="0.032591"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${userlabel}</arg>
+<arg>Username</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.443130" elapsed="0.000722"/>
+</kw>
+<kw name="Get Element Attribute" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:50.467772" level="INFO">${passlabel} = Password</msg>
+<var>${passlabel}</var>
+<arg>xpath://*[@id='password']</arg>
+<arg>placeholder</arg>
+<doc>Return the value of ``attribute`` from the element.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.444360" elapsed="0.023914"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${passlabel}</arg>
+<arg>Password</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.468274" elapsed="0.000520"/>
+</kw>
+<kw name="Get Element Attribute" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:50.497156" level="INFO">${loginlabel} = Login</msg>
+<var>${loginlabel}</var>
+<arg>xpath://*[@id='login-button']</arg>
+<arg>value</arg>
+<doc>Return the value of ``attribute`` from the element.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.468794" elapsed="0.028858"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${loginlabel}</arg>
+<arg>Login</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.497652" elapsed="0.000628"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:50.271031" elapsed="0.227249"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-01-22T15:48:50.499791" level="INFO">${unexpected_elements} = ["xpath://*[@id='react-burger-menu-btn']", "xpath://*[@class='title' and text()='Products']", "xpath://*[@class='shopping_cart_link']", "xpath://*[@class='product_sort_container']"]</msg>
+<var>${unexpected_elements}</var>
+<arg>xpath://*[@id='react-burger-menu-btn']</arg>
+<arg>xpath://*[@class='title' and text()='Products']</arg>
+<arg>xpath://*[@class='shopping_cart_link']</arg>
+<arg>xpath://*[@class='product_sort_container']</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.499286" elapsed="0.001005"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Element Should Not Be Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is not be visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.500291" elapsed="0.006360"/>
+</kw>
+<var name="${elem}">xpath://*[@id='react-burger-menu-btn']</var>
+<status status="PASS" start="2026-01-22T15:48:50.500291" elapsed="0.006360"/>
+</iter>
+<iter>
+<kw name="Element Should Not Be Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is not be visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.507149" elapsed="0.005194"/>
+</kw>
+<var name="${elem}">xpath://*[@class='title' and text()='Products']</var>
+<status status="PASS" start="2026-01-22T15:48:50.506651" elapsed="0.005692"/>
+</iter>
+<iter>
+<kw name="Element Should Not Be Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is not be visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.512853" elapsed="0.006368"/>
+</kw>
+<var name="${elem}">xpath://*[@class='shopping_cart_link']</var>
+<status status="PASS" start="2026-01-22T15:48:50.512853" elapsed="0.006869"/>
+</iter>
+<iter>
+<kw name="Element Should Not Be Visible" owner="PuppeteerLibrary">
+<arg>${elem}</arg>
+<doc>Verifies that element identified by locator is not be visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.520224" elapsed="0.005982"/>
+</kw>
+<var name="${elem}">xpath://*[@class='product_sort_container']</var>
+<status status="PASS" start="2026-01-22T15:48:50.519722" elapsed="0.006484"/>
+</iter>
+<var>${elem}</var>
+<value>@{unexpected_elements}</value>
+<status status="PASS" start="2026-01-22T15:48:50.500291" elapsed="0.025915"/>
+</for>
+<kw name="Execute Javascript" owner="PuppeteerLibrary">
+<arg>window.history.back()</arg>
+<doc>Executes the given JavaScript code</doc>
+<status status="PASS" start="2026-01-22T15:48:50.526206" elapsed="0.005697"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-22T15:48:50.532925" level="INFO">${errorcontainer} = xpath://*[@class='error-message-container error']</msg>
+<var>${errorcontainer}</var>
+<arg>xpath://*[@class='error-message-container error']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.532407" elapsed="0.000518"/>
+</kw>
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<arg>${errorcontainer}</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.533454" elapsed="0.010314"/>
+</kw>
+<kw name="Get Text" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:50.568396" level="INFO">${actualerror} = Epic sadface: You can only access '/cart.html' when you are logged in.</msg>
+<var>${actualerror}</var>
+<arg>${errorcontainer}</arg>
+<doc>Returns text value of element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.543768" elapsed="0.024628"/>
+</kw>
+<kw name="Element Text Should Be" owner="PuppeteerLibrary">
+<arg>${errorcontainer}</arg>
+<arg>${actualerror}</arg>
+<doc>Verifies that element locator contains exact the text `expected`.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.568892" elapsed="0.020079"/>
+</kw>
+<kw name="Reload Page" owner="PuppeteerLibrary">
+<doc>Reload the current page</doc>
+<status status="PASS" start="2026-01-22T15:48:50.588971" elapsed="0.042588"/>
+</kw>
+<kw name="Element Should Be Visible" owner="PuppeteerLibrary">
+<arg>${errorcontainer}</arg>
+<doc>Verifies that element identified by locator is visible.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.631559" elapsed="0.015438"/>
+</kw>
+<kw name="Get Text" owner="PuppeteerLibrary">
+<msg time="2026-01-22T15:48:50.668059" level="INFO">${actualerror} = Epic sadface: You can only access '/cart.html' when you are logged in.</msg>
+<var>${actualerror}</var>
+<arg>${errorcontainer}</arg>
+<doc>Returns text value of element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.647501" elapsed="0.021136"/>
+</kw>
+<kw name="Element Text Should Be" owner="PuppeteerLibrary">
+<arg>${errorcontainer}</arg>
+<arg>${actualerror}</arg>
+<doc>Verifies that element locator contains exact the text `expected`.</doc>
+<status status="PASS" start="2026-01-22T15:48:50.668637" elapsed="0.016802"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:50.270003" elapsed="0.416300"/>
+</kw>
+<status status="PASS" start="2026-01-22T15:48:49.356294" elapsed="1.330009"/>
+</kw>
+<kw name="Close All Browser" owner="PuppeteerLibrary" type="TEARDOWN">
+<doc>Close all browser</doc>
+<status status="PASS" start="2026-01-22T15:48:50.686303" elapsed="0.237605"/>
+</kw>
+<tag>Low</tag>
+<tag>Smoke</tag>
+<status status="PASS" start="2026-01-22T15:48:44.680239" elapsed="6.243669">User was able login Successfully.</status>
+</test>
+<doc>This test suite verifies the Add and Remove of Products to Shopping Cart functionality
+This also includes assertion of Elements within the Inventory Page</doc>
+<status status="PASS" start="2026-01-22T15:48:44.343496" elapsed="6.580920"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">Low</stat>
+<stat pass="1" fail="0" skip="0">Smoke</stat>
+</tag>
+<suite>
+<stat name="Inventory" id="s1" pass="1" fail="0" skip="0">Inventory</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
