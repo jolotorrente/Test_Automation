@@ -21,21 +21,22 @@ Validate Successful Login
     ...    xpath://*[@class='title' and text()='Products']
     ...    xpath://*[@class='shopping_cart_link']
     ...    xpath://*[@class='product_sort_container']
-    Wait Until Element Is Visible                   xpath://*[@class='app_logo' and text()='Swag Labs']
+    Wait Until Element Is Visible                           xpath://*[@class='app_logo' and text()='Swag Labs']
     FOR  ${elem}  IN  @{expected_elements}
         Element Should Be Visible    ${elem}
     END
 
-    Set Test Message    User was able login Successfully.    append=yes
+    Set Test Message    User was able login Successfully.   append=yes
+
 
 # This keyword is a sub-keyword for User Login
 # This Validates that user Log In was NOT Successful
 Validate Failed Login
-    ${actualerror} =            Get Text            xpath://*[@class='error-message-container error']
-    ${matched} =                Set Variable    ${False}
+    ${actualerror} =    Get Text                            xpath://*[@class='error-message-container error']
+    ${matched} =        Set Variable                        ${False}
     # For Loop to Verify different Error Messages for different Negative Test Cases
-    FOR    ${key}    ${expected_error}    IN    &{LOGIN_ERRORS}
-        IF    '${actualerror}' == '${expected_error}'
+    FOR  ${key}  ${expected_error}  IN  &{LOGIN_ERRORS}
+        IF  '${actualerror}' == '${expected_error}'
             Element Should Be Visible                       xpath://*[@class='error-message-container error']
             Element Should Contain                          xpath://*[@class='error-message-container error']    ${expected_error}
             ${matched} =        Set Variable    ${True}
@@ -52,13 +53,13 @@ Validate Failed Login
 # This Keyword Validates Login input fields to accept valid characters
 Validate Input Fields
     [Arguments]    @{input}
-    FOR    ${newinput}    IN    @{input}
+    FOR  ${newinput}  IN  @{input}
         Input Text                                  xpath://*[@id='user-name']    ${newinput}
         ${testusername} =  Get Value                xpath://*[@id='user-name']
         Should Be Equal As Strings                  ${newinput}    ${testusername}
         Clear Element Text                          xpath://*[@id='user-name']
     END
-    FOR    ${newinput}  IN  @{input}
+    FOR  ${newinput}  IN  @{input}
         Input Text                                  xpath://*[@id='password']    ${newinput}
         ${testpassword} =  Get Value                xpath://*[@id='password']
         Should Be Equal As Strings                  ${newinput}    ${testpassword}
@@ -70,18 +71,18 @@ Validate Input Fields
 Validate Login Page Elements
     # List Variable for repeating xpaths
     ${login_elements} =  Create List
-    ...    xpath://*[@id='user-name']
-    ...    xpath://*[@id='password']
-    ...    xpath://*[@id='login-button']
+    ...  xpath://*[@id='user-name']
+    ...  xpath://*[@id='password']
+    ...  xpath://*[@id='login-button']
     FOR  ${elem}  IN  @{login_elements}
         Wait Until Element Is Visible               ${elem}
         Element Should Be Enabled                   ${elem}
     END
     Wait Until Element Is Visible                   xpath://*[@class='login_logo']
     Element Text Should Be                          xpath://*[@class='login_logo']  Swag Labs
-    ${userlabel} =          Get Element Attribute   xpath://*[@id='user-name']      placeholder
+    ${userlabel} =      Get Element Attribute       xpath://*[@id='user-name']      placeholder
     Should Be Equal                                 ${userlabel}    Username
-    ${passlabel} =          Get Element Attribute   xpath://*[@id='password']       placeholder
+    ${passlabel} =      Get Element Attribute       xpath://*[@id='password']       placeholder
     Should Be Equal                                 ${passlabel}    Password
-    ${loginlabel} =         Get Element Attribute   xpath://*[@id='login-button']   value
+    ${loginlabel} =     Get Element Attribute       xpath://*[@id='login-button']   value
     Should Be Equal                                 ${loginlabel}   Login

@@ -70,8 +70,8 @@ Generate Random Quantity
 # This keyword Returns a list of unique random indexes for selecting products
 Generate Random Indexes
     [Arguments]    ${total_products}    ${quantity}
-    ${all_indexes}=    Evaluate    list(range(1, ${total_products}+1))
-    ${random_indexes}=    Evaluate    random.sample(${all_indexes}, ${quantity})    random
+    ${all_indexes}=     Evaluate                    list(range(1, ${total_products}+1))
+    ${random_indexes}=  Evaluate                    random.sample(${all_indexes}, ${quantity})    random
     Set Test Variable    ${random_indexes}
     RETURN    ${random_indexes}
 
@@ -86,18 +86,18 @@ Generate Random Cart Index
 
 # This keyword Returns the total number of products currently in the cart
 Get Cart Product Count
-    Wait Until Element Is Visible    xpath://*[@class='cart_list']//*[text()='Remove']
-    ${cart_count}=    Get Element Count    xpath://*[@class='cart_list']//*[text()='Remove']
+    Wait Until Element Is Visible                   xpath://*[@class='cart_list']//*[text()='Remove']
+    ${cart_count}=      Get Element Count           xpath://*[@class='cart_list']//*[text()='Remove']
     RETURN    ${cart_count}
 
 
 # This keyword Adds Random Product/s to Cart
 Add Random Product to Cart
-    ${productcounter}=    Get Inventory Product Count
-    ${rdmquantity}=       Generate Random Quantity    ${productcounter}
-    Set Test Variable    ${rdmquantity}
-    ${random_indexes}=    Generate Random Indexes     ${productcounter}    ${rdmquantity}
-    FOR    ${index}    IN    @{random_indexes}
+    ${productcounter}=  Get Inventory Product Count
+    ${rdmquantity}=     Generate Random Quantity    ${productcounter}
+    Set Test Variable   ${rdmquantity}
+    ${random_indexes}=  Generate Random Indexes     ${productcounter}    ${rdmquantity}
+    FOR  ${index}  IN  @{random_indexes}
         Click And Validate Product    ${index}
     END
     Validate Cart Badge
@@ -108,9 +108,9 @@ Click And Validate Product
     [Arguments]    ${index}
     ${add_btn}=      Set Variable                   xpath://*[@class='inventory_item'][${index}]//*[text()='Add to cart']
     ${productname}=  Get Text                       xpath://*[@class='inventory_item'][${index}]//*[@class='inventory_item_description']//*[@class='inventory_item_name ']
-    Scroll Element Into View        ${add_btn}
-    Wait Until Element Is Visible   ${add_btn}
-    Click Element                   ${add_btn}
+    Scroll Element Into View                        ${add_btn}
+    Wait Until Element Is Visible                   ${add_btn}
+    Click Element                                   ${add_btn}
     Open Cart
     Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Your Cart']
     Element Should Be Visible                       xpath://*[@class='inventory_item_name' and text()='${productname}']
@@ -123,16 +123,16 @@ Click And Validate Product
 Remove Random Product from Shopping Cart
     Open Cart
     ${cart_count}=      Get Cart Product Count
-    ${random_index}=    Generate Random Cart Index    ${cart_count}
-    Click And Validate Removal    ${random_index}
+    ${random_index}=    Generate Random Cart Index  ${cart_count}
+    Click And Validate Removal                      ${random_index}
 
 
 # This keyword Removes ALL Product/s from the Shopping Cart safely
 Remove All Products from Shopping Cart
     Open Cart
     ${cart_count}=    Get Cart Product Count
-    IF    ${cart_count} > 0
-        FOR    ${index}    IN RANGE    ${cart_count}
+    IF  ${cart_count} > 0
+        FOR  ${index}  IN RANGE  ${cart_count}
             Click And Validate Removal    1
             Open Cart
         END
@@ -142,7 +142,7 @@ Remove All Products from Shopping Cart
     Validate Shopping Cart Default State
 
 
-# Clicks the Remove button for a specific cart item index and validates removal
+# This keyword Clicks the Remove button for a specific cart item index and validates removal
 Click And Validate Removal
     [Arguments]    ${index}
     ${remove_btn}=      Set Variable                xpath://*[@class='cart_list']//*[@class='cart_item'][${index}]//*[text()='Remove']
@@ -214,7 +214,7 @@ Validate Cart Badge
     # Evalute if Shopping Cart has Product Counter or None
     ${cartstatus}=  Run Keyword And Return Status
     ...  Element Should Be Visible                  xpath://*[@class='shopping_cart_badge']
-    IF    ${cartstatus} == True
+    IF  ${cartstatus} == True
         ${cartcounter}=  Get Text                   xpath://*[@class='shopping_cart_badge']
         Should Be Equal As Integers                 ${cartcounter}    ${rdmquantity}
     ELSE

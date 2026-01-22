@@ -15,22 +15,22 @@ Resource        ../Variables/Logout_variables.robot
 ###############################
 
 
-# This keyword is used to Verify if User was Properly Logout on the Test Website (saucedemo.com)
+# This keyword Validates Logout Session on the Test Website (saucedemo.com)
 Validate Successful Logout
     Set Screenshot Directory                        ${SCREENSHOT_LOGOUT_DIR}
     Validate Login Page Elements
     # Validate the Inventory Page Elements are no longer Available after Logout
     ${unexpected_elements} =  Create List
-    ...    xpath://*[@id='react-burger-menu-btn']
-    ...    xpath://*[@class='title' and text()='Products']
-    ...    xpath://*[@class='shopping_cart_link']
-    ...    xpath://*[@class='product_sort_container']
-    FOR     ${elem}     IN      @{unexpected_elements}
+    ...  xpath://*[@id='react-burger-menu-btn']
+    ...  xpath://*[@class='title' and text()='Products']
+    ...  xpath://*[@class='shopping_cart_link']
+    ...  xpath://*[@class='product_sort_container']
+    FOR  ${elem}  IN  @{unexpected_elements}
         Element Should Not Be Visible               ${elem}
     END
 
 
-
+# This keyword Validates Logout Session on Back Navigation
 Confirm Logout Session on Back Navigation
     # This will try to Navigate Back on the previous page, which was a Logged In State, using a Javascript
     Execute Javascript      window.history.back()
@@ -42,13 +42,13 @@ Confirm Logout Session on Back Navigation
     Element Text Should Be                          ${errorcontainer}       ${actualerror}
 
 
-
+# This keyword Validates Logout Session after Page Refresh
 Validate Successful Logout after Refresh
     Reload Page
     Validate Login Page Elements
 
 
-# This keyword is used to Verify if User was Properly Logout on the Test Website (saucedemo.com)
+# This keyword Verifies Security Check on Restristed Web Pages that Requires Login (saucedemo.com)
 Validate Secured Pages after Logout
     # Build Variable for XPATH locator
     # Build List Variable for the following Webpages
