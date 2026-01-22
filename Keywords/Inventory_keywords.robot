@@ -60,20 +60,21 @@ Get Inventory Product Count
     RETURN    ${productcounter}
 
 
-# Generates a random number of products to add, between 1 and the total products
+# Returns a random number of products to add, based on the total number of products
 Generate Random Quantity
-    [Arguments]    ${productcounter}
-    ${rdmquantity}=    Evaluate    random.randint(1, ${productcounter})    random
+    [Arguments]    ${total_products}
+    ${rdmquantity}=    Evaluate    random.randint(1, ${total_products})    random
     Set Test Variable    ${rdmquantity}
     RETURN    ${rdmquantity}
 
 
-# Generates unique random indexes for the products to add
+# Returns a list of unique random indexes for selecting products
 Generate Random Indexes
-    [Arguments]    ${productcounter}    ${rdmquantity}
-    ${all_indexes}=    Evaluate    list(range(1, ${productcounter}+1))
-    ${random_indexes}=    Evaluate    random.sample(${all_indexes}, ${rdmquantity})    random
-    RETURN    ${random_indexes}
+    [Arguments]    ${total_products}    ${quantity}
+    ${all_indexes}=    Evaluate    list(range(1, ${total_products}+1))
+    ${random_indexes}=    Evaluate    random.sample(${all_indexes}, ${quantity})    random
+    Set Test Variable    ${random_indexes}
+    [Return]    ${random_indexes}
 
 
 # This keyword Adds Random Product/s to Cart
@@ -81,14 +82,16 @@ Add Random Product to Cart
     ${productcounter}=    Get Inventory Product Count
     ${rdmquantity}=       Generate Random Quantity    ${productcounter}
     ${random_indexes}=    Generate Random Indexes     ${productcounter}    ${rdmquantity}
+
     FOR    ${index}    IN    @{random_indexes}
-        The Add Product to Cart    ${index}
+        Click And Validate Product    ${index}
     END
+
     Validate Cart Badge
 
 
-# This keyword performs the actual Add to Cart action for a given product index
-The Add Product to Cart
+# Clicks the Add to Cart button for a specific product index and validates it in the cart
+Click And Validate Product
     [Arguments]    ${index}
     ${add_btn}=      Set Variable    xpath://*[@class='inventory_item'][${index}]//*[text()='Add to cart']
     ${productname}=  Get Text         xpath://*[@class='inventory_item'][${index}]//*[@class='inventory_item_description']//*[@class='inventory_item_name ']
@@ -101,8 +104,27 @@ The Add Product to Cart
     Wait Until Element Is Visible    xpath://*[@class='title' and text()='Your Cart']
     Element Should Be Visible        xpath://*[@class='inventory_item_name' and text()='${productname}']
     Set Screenshot Directory         ${SCREENSHOT_INVENTORY_DIR}
-    Capture Page Screenshot          Product-${productname}_Added to Cart.png
+    Capture Page Screenshot          Product-${productname}_Added_to_Cart.png
     Return to Shopping
+
+
+
+## This keyword performs the actual Add to Cart action for a given product index
+#Add Product to Cart
+#    [Arguments]    ${index}
+#    ${add_btn}=      Set Variable    xpath://*[@class='inventory_item'][${index}]//*[text()='Add to cart']
+#    ${productname}=  Get Text         xpath://*[@class='inventory_item'][${index}]//*[@class='inventory_item_description']//*[@class='inventory_item_name ']
+#
+#    Scroll Element Into View    ${add_btn}
+#    Wait Until Element Is Visible    ${add_btn}
+#    Click Element                   ${add_btn}
+#
+#    Open Cart
+#    Wait Until Element Is Visible    xpath://*[@class='title' and text()='Your Cart']
+#    Element Should Be Visible        xpath://*[@class='inventory_item_name' and text()='${productname}']
+#    Set Screenshot Directory         ${SCREENSHOT_INVENTORY_DIR}
+#    Capture Page Screenshot          Product-${productname}_Added to Cart.png
+#    Return to Shopping
 
 
 # This keyword Removes Random Product/s from the Shopping Cart
