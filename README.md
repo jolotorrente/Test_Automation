@@ -3,11 +3,12 @@ GitHub - jolotorrente/Test_Automation using Robot Framework | Puppeteer Library 
 Subject for Test Automation: saucedemo.com
 Type of Website: E-Commerce
 
-Framework: Robot Framework using Puppeteer Library
+Automation Tool: Robot Framework using Puppeteer Library
+Framework: Keyword-Driven
 Repository: GitHub
 
 FRAMEWORK STRUCTURE:
-Keywords (Feature-Based Compilation)
+Keywords (Feature-Based Compilation of Keyword-Driven Approach)
 Testsuites
  - Regression
  - API
