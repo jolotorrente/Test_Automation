@@ -21,28 +21,57 @@ Test Teardown   Close All Browser
 
 *** Test Cases ***
 
-Product-Intercation 01 - Validate Product Inventory Page Elements
+Inventory 01 - Validate Product Inventory Page Elements
     [Tags]  Low    Smoke
     User Login                  ${USERNAME}             ${PASSWORD}
     Validate Inventory Page Elements
     User Logout
 
-Product-Intercation 02 - Add Product to Shopping Cart from the Shopping Page
+Inventory 02 - Add Product to Shopping Cart from the Shopping Page
     [Tags]  Medium
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
     User Logout
 
- Product-Intercation 03 - Add Product from the Shopping Page and Remove Product from the Shopping Cart
+ Inventory 03 - Add Product from the Shopping Page and Remove Product from the Shopping Cart
     [Tags]  Medium
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
     Remove Product from Shopping Cart
     User Logout
 
-Product-Intercation 04 - Add and Remove Product to Shopping Cart from the Shopping Page
+Inventory 04 - Add and Remove Product to Shopping Cart from the Shopping Page
     [Tags]  High
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Product to Cart
     Remove Product from Shopping Page
+    User Logout
+
+Inventory 05 - Negative Test: Navigate to a Non-Existing Product Page
+    [Tags]  Medium  Security
+    User Login                  ${USERNAME}             ${PASSWORD}
+    User Logout
+
+Inventory 06 - Validate Cart Default State
+    [Tags]  Low     Smoke
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Validate Cart Badge
+    User Logout
+
+Inventory 07 - Empty the Cart (Remove All Products to Cart)
+    [Tags]  Medium
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Add Product to Cart
+    User Logout
+
+Inventory 08 - Navigate Back to Shopping from Cart
+    [Tags]  Medium
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Add Product to Cart
+    Return to Shopping
+    User Logout
+
+Inventory 09 - Retain Product in Cart after Relogin
+    [Tags]  Medium
+    User Login                  ${USERNAME}             ${PASSWORD}
     User Logout

@@ -69,4 +69,4 @@ Open Burger Menu
 Return to Shopping
     Wait Until Element Is Visible                   xpath://*[@id='continue-shopping']
     Click Element                                   xpath://*[@id='continue-shopping']
-    Wait Until Element Is Visible                   xpath://*[@class='app_logo']
+    Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Products']

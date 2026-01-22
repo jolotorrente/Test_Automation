@@ -16,13 +16,13 @@ Resource        ../Variables/Login_variables.robot
 # This keyword is a sub-keyword for User Login
 # This Validates that user Log In was Successful
 Validate Successful Login
-    ${expected_elements} =  Create List
+    ${expected_elements}=  Create List
     ...    xpath://*[@id='react-burger-menu-btn']
     ...    xpath://*[@class='title' and text()='Products']
     ...    xpath://*[@class='shopping_cart_link']
     ...    xpath://*[@class='product_sort_container']
     Wait Until Element Is Visible                   xpath://*[@class='app_logo' and text()='Swag Labs']
-    FOR     ${elem}     IN      @{expected_elements}
+    FOR  ${elem}  IN  @{expected_elements}
         Element Should Be Visible    ${elem}
     END
 
