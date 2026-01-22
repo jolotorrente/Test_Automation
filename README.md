@@ -8,13 +8,13 @@ Framework: Robot Framework using Puppeteer Library
 Repository: GitHub
 
 FRAMEWORK STRUCTURE:
-Keywords
+Keywords (Feature-Based Compilation)
 Testsuites
-  Regression
-  API
-  Security
-  Functional
-Variables
+ - Regression
+ - API
+ - Security
+ - Functional
+Variables (Feature-Based Compilation)
 
 DOCUMENTATION:
 Each Robot Framework test file (`.robot`) contains its own embedded documentation using the `Documentation` setting.  
