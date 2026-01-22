@@ -19,10 +19,12 @@ Variables (Feature-Based Compilation)
 DOCUMENTATION:
 Each Robot Framework test file (`.robot`) contains its own embedded documentation using the `Documentation` setting.  
 This documentation explains the purpose, scope, and intended usage of the test suite, test cases, and keywords defined in the file.
+Keywords are written and deisgned to be reusable.
 
+TEST REPORT:
 Current Statistics, Coverage and Structure as of 22 Jan 2026:
 Total Test Cases: 31
-Execution Time: 00h:03m:24s
+Execution Time: 00h:03m:16s
 
 Test Cases according to Priority [31 Test Cases]
 High: 10
