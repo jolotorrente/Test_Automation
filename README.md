@@ -1,16 +1,20 @@
 GitHub - jolotorrente/Test_Automation using Robot Framework | Puppeteer Library
 (Work in Progress)
 
+Subject for Test Automation: saucedemo.com
+Type of Website: E-Commerce
+
 Framework: Robot Framework using Puppeteer Library
 Repository: GitHub
 
-Structure:
+Framework Structure:
 Keywords
 Testsuites
 Variables
 
-Subject for Test Automation: saucedemo.com
-Type of Website: E-Commerce
+
+
+
 
 Current Statistics, Coverage and Structure as of 20 Jan 2026:
 Total Test Cases: 24
