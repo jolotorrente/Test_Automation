@@ -13,26 +13,24 @@ Testsuites
   Regression
   API
   Security
-  Smoke
+  Functional
 Variables
 
 DOCUMENTATION:
 Each Robot Framework test file (`.robot`) contains its own embedded documentation using the `Documentation` setting.  
 This documentation explains the purpose, scope, and intended usage of the test suite, test cases, and keywords defined in the file.
 
+Current Statistics, Coverage and Structure as of 22 Jan 2026:
+Total Test Cases: 31
+Execution Time: 00h:03m:24s
 
-
-Current Statistics, Coverage and Structure as of 20 Jan 2026:
-Total Test Cases: 24
-Execution Time: 00h:01m:37s
-
-Test Cases according to Priority [24 Test Cases]
-High: 8
-Low: 9
-Medium: 7
+Test Cases according to Priority [31 Test Cases]
+High: 10
+Medium: 11
+Low: 10
 
 Type of Testing
-Regression: 6
-Security: 2
-Smoke: 6
-Functional: 24 (All Test Casess are Functional and Structured per Feature)
+Functional: 29 (All Test Casess are Functional and Structured per Feature)
+Regression: 8 (2 End-to-End, 6 Test Cases are Tags from Functional Test Suite)
+Security: 5 (Tags from Functional Test Suite)
+Smoke: 7 (Tags from Functional Test Suite)
