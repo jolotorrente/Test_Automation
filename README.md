@@ -7,12 +7,18 @@ Type of Website: E-Commerce
 Framework: Robot Framework using Puppeteer Library
 Repository: GitHub
 
-Framework Structure:
+FRAMEWORK STRUCTURE:
 Keywords
 Testsuites
+  Regression
+  API
+  Security
+  Smoke
 Variables
 
-
+DOCUMENTATION:
+Each Robot Framework test file (`.robot`) contains its own embedded documentation using the `Documentation` setting.  
+This documentation explains the purpose, scope, and intended usage of the test suite, test cases, and keywords defined in the file.
 
 
 
