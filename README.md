@@ -18,7 +18,7 @@ Variables (Feature-Based Compilation)
 
 DOCUMENTATION:
 Each Robot Framework test file (`.robot`) contains its own embedded documentation using the `Documentation` setting.  
-This documentation explains the purpose, scope, and intended usage of the test suite, test cases, and keywords defined in the file.
+This documentation explains the purpose, scope, and intended usage of the test suite, test cases, keywords, and variables defined in the file.
 Keywords are written and deisgned to be reusable.
 
 TEST REPORT:
