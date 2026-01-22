@@ -53,40 +53,60 @@ Validate Product Elements on Product View
     END
 
 
+# Returns the total number of products currently displayed on the inventory page
+Get Inventory Product Count
+    Wait Until Element Is Visible    xpath://div[@class='inventory_item']
+    ${productcounter}=    Get Element Count    xpath://div[@class='inventory_item']
+    RETURN    ${productcounter}
+
+
+# Generates a random number of products to add, between 1 and the total products
+Generate Random Quantity
+    [Arguments]    ${productcounter}
+    ${rdmquantity}=    Evaluate    random.randint(1, ${productcounter})    random
+    Set Test Variable    ${rdmquantity}
+    RETURN    ${rdmquantity}
+
+
+# Generates unique random indexes for the products to add
+Generate Random Indexes
+    [Arguments]    ${productcounter}    ${rdmquantity}
+    ${all_indexes}=    Evaluate    list(range(1, ${productcounter}+1))
+    ${random_indexes}=    Evaluate    random.sample(${all_indexes}, ${rdmquantity})    random
+    RETURN    ${random_indexes}
+
+
 # This keyword Adds Random Product/s to Cart
-Add Product to Cart
-    #Count the total Products in the Current Page
-    Wait Until Element Is Visible                   xpath://div[@class='inventory_item']
-    ${productcounter}=  Get Element Count           xpath://div[@class='inventory_item']
-    # Generate a random number how many products to add
-    ${rdmquantity}=  Evaluate                       random.randint(1, ${productcounter})    random
-    Set Test Variable       ${rdmquantity}
-    # Generate a list of unique random indexes
-    ${add_indexes}=  Evaluate                       list(range(1, ${productcounter}+1))    # list of all indexes
-    ${random_indexes}=  Evaluate                    random.sample(${add_indexes}, ${rdmquantity})    random
-    # Loop through each unique random indexes
-    FOR  ${index}  IN  @{random_indexes}
-        # Build Add to cart button XPath
-        ${add_btn}=  Set Variable                   xpath://*[@class='inventory_item'][${index}]//*[text()='Add to cart']
-        # Get relativeproduct name  to the button
-        ${productname}=  Get Text                   xpath://*[@class='inventory_item'][${index}]//*[@class='inventory_item_description']//*[@class='inventory_item_name ']
-        # Scroll until Add Button is Visible on the active screen
-        Scroll Element Into View                    ${add_btn}
-        Wait Until Element Is Visible               ${add_btn}
-        Click Element                               ${add_btn}
-        # Validate in Cart that Product was added
-        Open Cart
-        Wait Until Element Is Visible               xpath://*[@class='title' and text()='Your Cart']
-        Element Should Be Visible                   xpath://*[@class='inventory_item_name' and text()='${productname}']
-        Set Screenshot Directory                    ${SCREENSHOT_INVENTORY_DIR}
-        Capture Page Screenshot                     Product-${productname}_Added to Cart.png
-        Return to Shopping
+Add Random Product to Cart
+    ${productcounter}=    Get Inventory Product Count
+    ${rdmquantity}=       Generate Random Quantity    ${productcounter}
+    ${random_indexes}=    Generate Random Indexes     ${productcounter}    ${rdmquantity}
+    FOR    ${index}    IN    @{random_indexes}
+        The Add Product to Cart    ${index}
     END
     Validate Cart Badge
 
 
+# This keyword performs the actual Add to Cart action for a given product index
+The Add Product to Cart
+    [Arguments]    ${index}
+    ${add_btn}=      Set Variable    xpath://*[@class='inventory_item'][${index}]//*[text()='Add to cart']
+    ${productname}=  Get Text         xpath://*[@class='inventory_item'][${index}]//*[@class='inventory_item_description']//*[@class='inventory_item_name ']
+
+    Scroll Element Into View    ${add_btn}
+    Wait Until Element Is Visible    ${add_btn}
+    Click Element                   ${add_btn}
+
+    Open Cart
+    Wait Until Element Is Visible    xpath://*[@class='title' and text()='Your Cart']
+    Element Should Be Visible        xpath://*[@class='inventory_item_name' and text()='${productname}']
+    Set Screenshot Directory         ${SCREENSHOT_INVENTORY_DIR}
+    Capture Page Screenshot          Product-${productname}_Added to Cart.png
+    Return to Shopping
+
+
 # This keyword Removes Random Product/s from the Shopping Cart
-Remove Product from Shopping Cart
+Remove Random Product from Shopping Cart
     Open Cart
     Wait Until Element Is Visible                   xpath://*[@class='cart_list']//*[text()='Remove']
     ${removebtncounter}=  Get Element Count         xpath://*[@class='cart_list']//*[text()='Remove']
@@ -117,7 +137,7 @@ Remove Product from Shopping Cart
 
 
 # This keyword Removes Random Product/s from Inventory page and validates Shopping Cart
-Remove Product from Shopping Page
+Remove Random Product from Shopping Page
     Wait Until Element Is Visible                   xpath://*[@class='inventory_item']
     # Count all products on the Inventory page
     ${total_products}=  Get Element Count           xpath://*[@class='inventory_item']
@@ -196,4 +216,3 @@ Validate Shopping Cart Default State
     # As per website UI, button is not disabled even when there is no product
     Element Should Be Enabled                       xpath://*[@id='checkout']
     Element Text Should Be                          xpath://*[@id='checkout']   Checkout
-
