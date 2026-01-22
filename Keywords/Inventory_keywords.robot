@@ -74,7 +74,22 @@ Generate Random Indexes
     ${all_indexes}=    Evaluate    list(range(1, ${total_products}+1))
     ${random_indexes}=    Evaluate    random.sample(${all_indexes}, ${quantity})    random
     Set Test Variable    ${random_indexes}
-    [Return]    ${random_indexes}
+    RETURN    ${random_indexes}
+
+
+# Returns a random index for cart items
+Generate Random Cart Index
+    [Arguments]    ${total_in_cart}
+    ${all_indexes}=    Evaluate    list(range(1, ${total_in_cart}+1))
+    ${random_index}=   Evaluate    random.choice(${all_indexes})    random
+    RETURN    ${random_index}
+
+
+# Returns the total number of products currently in the cart
+Get Cart Product Count
+    Wait Until Element Is Visible    xpath://*[@class='cart_list']//*[text()='Remove']
+    ${cart_count}=    Get Element Count    xpath://*[@class='cart_list']//*[text()='Remove']
+    RETURN    ${cart_count}
 
 
 # This keyword Adds Random Product/s to Cart
@@ -108,54 +123,39 @@ Click And Validate Product
     Return to Shopping
 
 
-
-## This keyword performs the actual Add to Cart action for a given product index
-#Add Product to Cart
-#    [Arguments]    ${index}
-#    ${add_btn}=      Set Variable    xpath://*[@class='inventory_item'][${index}]//*[text()='Add to cart']
-#    ${productname}=  Get Text         xpath://*[@class='inventory_item'][${index}]//*[@class='inventory_item_description']//*[@class='inventory_item_name ']
-#
-#    Scroll Element Into View    ${add_btn}
-#    Wait Until Element Is Visible    ${add_btn}
-#    Click Element                   ${add_btn}
-#
-#    Open Cart
-#    Wait Until Element Is Visible    xpath://*[@class='title' and text()='Your Cart']
-#    Element Should Be Visible        xpath://*[@class='inventory_item_name' and text()='${productname}']
-#    Set Screenshot Directory         ${SCREENSHOT_INVENTORY_DIR}
-#    Capture Page Screenshot          Product-${productname}_Added to Cart.png
-#    Return to Shopping
-
-
 # This keyword Removes Random Product/s from the Shopping Cart
 Remove Random Product from Shopping Cart
     Open Cart
-    Wait Until Element Is Visible                   xpath://*[@class='cart_list']//*[text()='Remove']
-    ${removebtncounter}=  Get Element Count         xpath://*[@class='cart_list']//*[text()='Remove']
-    # Generate a random number on which product to remove
-    ${remove_indexes}=  Evaluate        list(range(1, ${removebtncounter} + 1))     random
-    ${random_index}=  Evaluate          random.choice(${remove_indexes})            random
-    # Build Remove to cart button XPath
-    ${remove_btn}=  Set Variable                    xpath://*[@class='cart_list']//*[@class='cart_item'][${random_index}]//*[text()='Remove']
-    ${productname}=  Get Text                       xpath://*[@class='cart_list']//*[@class='cart_item'][${random_index}]//*[@class='inventory_item_name']
-    # Scroll until Remove Button is Visible on the active screen
-    Wait Until Element Is Visible                   xpath://*[@class='cart_list']//*[text()='Remove']
-    Scroll Element Into View            ${remove_btn}
-    Wait Until Element Is Visible       ${remove_btn}
-    Click Element                       ${remove_btn}
-    # Validate product was removed from cart (before reload)
-    Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Your Cart']
-    Element Should Not Be Visible                   xpath://*[@class='inventory_item_name' and text()='${productname}']
-    # Reload page and validate again
+    ${cart_count}=       Get Cart Product Count
+    ${random_index}=     Generate Random Cart Index    ${cart_count}
+    Click And Validate Removal    ${random_index}
+
+
+# Clicks the Remove button for a specific cart item index and validates removal
+Click And Validate Removal
+    [Arguments]    ${index}
+    ${remove_btn}=       Set Variable    xpath://*[@class='cart_list']//*[@class='cart_item'][${index}]//*[text()='Remove']
+    ${productname}=      Get Text         xpath://*[@class='cart_list']//*[@class='cart_item'][${index}]//*[@class='inventory_item_name']
+
+    Scroll Element Into View    ${remove_btn}
+    Wait Until Element Is Visible    ${remove_btn}
+    Click Element                   ${remove_btn}
+
+    # Validate removal in Cart
+    Wait Until Element Is Visible               xpath://*[@class='title' and text()='Your Cart']
+    Element Should Not Be Visible               xpath://*[@class='inventory_item_name' and text()='${productname}']
+
+    # Reload and validate again
     Reload Page
-    Wait Until Element Is Visible                   xpath://*[@class='title' and text()='Your Cart']
-    Element Should Not Be Visible                   xpath://*[@class='inventory_item_name' and text()='${productname}']
+    Wait Until Element Is Visible               xpath://*[@class='title' and text()='Your Cart']
+    Element Should Not Be Visible               xpath://*[@class='inventory_item_name' and text()='${productname}']
+
     # Cross-check inventory page
     Return to Shopping
-    Wait Until Element Is Visible                   xpath://*[@class='inventory_item' and .//div[text()='${productname}']]
-    Element Should Be Visible                       xpath://*[@class='inventory_item' and .//div[text()='${productname}']]//button[text()='Add to cart']
-    Capture Page Screenshot                         Product-${productname}_Removed_and_Inventory_Checked.png
-    Set Test Message                                ${productname} was removed from the cart
+    Wait Until Element Is Visible               xpath://*[@class='inventory_item' and .//div[text()='${productname}']]
+    Element Should Be Visible                   xpath://*[@class='inventory_item' and .//div[text()='${productname}']]//button[text()='Add to cart']
+    Capture Page Screenshot                     Product-${productname}_Removed_and_Inventory_Checked.png
+    Set Test Message                            ${productname} was removed from the cart
 
 
 # This keyword Removes Random Product/s from Inventory page and validates Shopping Cart

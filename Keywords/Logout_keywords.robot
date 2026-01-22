@@ -28,6 +28,10 @@ Validate Successful Logout
     FOR     ${elem}     IN      @{unexpected_elements}
         Element Should Not Be Visible               ${elem}
     END
+
+
+
+Confirm Logout Session on Back Navigation
     # This will try to Navigate Back on the previous page, which was a Logged In State, using a Javascript
     Execute Javascript      window.history.back()
     # Build Error Message Container XPath
@@ -36,10 +40,12 @@ Validate Successful Logout
     Element Should Be Visible                       ${errorcontainer}
     ${actualerror} =            Get Text            ${errorcontainer}
     Element Text Should Be                          ${errorcontainer}       ${actualerror}
+
+
+
+Validate Successful Logout after Refresh
     Reload Page
-    Element Should Be Visible                       ${errorcontainer}
-    ${actualerror} =            Get Text            ${errorcontainer}
-    Element Text Should Be                          ${errorcontainer}       ${actualerror}
+    Validate Login Page Elements
 
 
 # This keyword is used to Verify if User was Properly Logout on the Test Website (saucedemo.com)

@@ -29,8 +29,19 @@ Logout 01 - Logout to Website After Successful Login
     User Login                  ${USERNAME}             ${PASSWORD}
     User Logout
 
+Logout 02 - Confirm Logout Session on Back Navigation
+    [Tags]  High    Regression      Security
+    User Login                  ${USERNAME}             ${PASSWORD}
+    User Logout
+    Confirm Logout Session on Back Navigation
 
-Logout 02 - Logged In Pages Not Accessible After Logout
+Logout 03 - Confirm Logout Session after Refresh
+    [Tags]  High    Regression      Security
+    User Login                  ${USERNAME}             ${PASSWORD}
+    User Logout
+    Validate Successful Logout after Refresh
+
+Logout 04 - Logged In Pages Not Accessible After Logout
     [Tags]  High    Regression      Security
     User Login                  ${USERNAME}             ${PASSWORD}
     User Logout
