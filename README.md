@@ -1,5 +1,4 @@
-GitHub - jolotorrente/Test_Automation using Robot Framework | Puppeteer Library
-(Work in Progress)
+GitHub - jolotorrente/Test_Automation using Robot Framework | Puppeteer Library (Work in Progress)
 
 Subject for Test Automation: saucedemo.com
 Type of Website: E-Commerce
@@ -27,8 +26,8 @@ Total Test Cases: 31
 Execution Time: 00h:03m:18s
 
 Test Cases according to Priority [31 Test Cases]
-High: 10
-Medium: 11
+High: 11
+Medium: 10
 Low: 10
 
 Type of Testing
