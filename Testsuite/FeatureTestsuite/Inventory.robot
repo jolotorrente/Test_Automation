@@ -62,15 +62,22 @@ Inventory 07 - Empty the Cart (Remove All Products to Cart)
     [Tags]  Medium
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Random Product to Cart
+    Remove All Products from Shopping Cart
     User Logout
 
 Inventory 08 - Navigate Back to Shopping from Cart
     [Tags]  Medium
     User Login                  ${USERNAME}             ${PASSWORD}
     Add Random Product to Cart
+    Open Cart
+    Return to Shopping
     User Logout
 
 Inventory 09 - Retain Product in Cart after Relogin
     [Tags]  Medium
     User Login                  ${USERNAME}             ${PASSWORD}
+    Add Random Product to Cart
+    User Logout
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Validate Cart Badge
     User Logout
