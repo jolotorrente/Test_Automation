@@ -31,7 +31,7 @@ Medium: 10
 Low: 10
 
 Type of Testing
-Functional: 28 (All Test Casess are Functional and Structured per Feature)
+Functional: 28 (Functional Test Cases are structured per Feature)
 Regression: 9 (3 End-to-End, 6 Test Cases are Tags from Functional Test Suite)
 Security: 5 (Tags from Functional Test Suite)
 Smoke: 7 (Tags from Functional Test Suite)
