@@ -12,7 +12,7 @@ Resource        ../../Variables/Login_variables.robot
 Resource        ../../Variables/Checkout_variables.robot
 
 ### Documentation ###
-Documentation   This test suite verifies the log-in and log out functionality
+Documentation   This test suite verifies the Checkout functionality
 
 ### Keyword executed on start of each tests ###
 Test Setup      Launch Website

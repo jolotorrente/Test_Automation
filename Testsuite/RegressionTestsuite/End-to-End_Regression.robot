@@ -12,7 +12,8 @@ Resource        ../../Variables/Login_variables.robot
 Resource        ../../Variables/Checkout_variables.robot
 
 ### Documentation ###
-Documentation   This test suite verifies the log-in and log out functionality
+Documentation   This test suite verifies multiple functionalities combined resulting to End-to-End Scenarios
+...             This also covers End-User Use Cases, How the Application is used by End-Users
 
 ### Keyword executed on start of each tests ###
 Test Setup      Launch Website
@@ -36,6 +37,14 @@ End-to-End_Regression 02 - User to Remove Products prior to Checkout and Payment
     Checkout Cart               ${FIRST_NAME}       ${LAST_NAME}        ${POSTAL_CODE}
     User Logout
 
-#End-to-End_Regression 03 - Retain Products added to Cart after Logout when User did not complete Checkout
-#    [Tags]  High    Regression
-#    User Login
+End-to-End_Regression 03 - Retain Products added to Cart after Logout when User did not complete Checkout
+    [Tags]  High    Regression
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Add Random Product to Cart
+    Open Cart
+    Initiate Checkout
+    Supply User Information  ${firstname}    ${lastname}    ${postalcode}
+    User Logout
+    User Login                  ${USERNAME}             ${PASSWORD}
+    Validate Cart Badge
+    User Logout

@@ -10,6 +10,12 @@ Resource        ../Keywords/Global_keywords.robot
 Resource        ../Variables/Login_variables.robot
 Resource        ../Variables/Inventory_variables.robot
 
+### Documentation ###
+Documentation   This Keyword Robot File is a compilation Inventory functionalities
+...             Add and Remove Products
+...             Cart Interactions
+...             Product View
+...             Product Sort (WIP)
 
 *** Keywords ***
 ###################################################
@@ -66,6 +72,7 @@ Generate Random Quantity
     ${rdmquantity}=    Evaluate    random.randint(1, ${total_products})    random
     Set Test Variable    ${rdmquantity}
     RETURN    ${rdmquantity}
+
 
 # This keyword Returns a list of unique random indexes for selecting products
 Generate Random Indexes

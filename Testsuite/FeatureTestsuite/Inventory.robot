@@ -72,12 +72,3 @@ Inventory 08 - Navigate Back to Shopping from Cart
     Open Cart
     Return to Shopping
     User Logout
-
-Inventory 09 - Retain Product in Cart after Relogin
-    [Tags]  Medium
-    User Login                  ${USERNAME}             ${PASSWORD}
-    Add Random Product to Cart
-    User Logout
-    User Login                  ${USERNAME}             ${PASSWORD}
-    Validate Cart Badge
-    User Logout

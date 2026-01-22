@@ -13,7 +13,6 @@ Resource        ../../Variables/Logout_variables.robot
 ### Documentation ###
 Documentation   This test suite verifies the log-out functionality
 ...             This also Includes Security Testing by validating Secured Pages
-...             This also includes assertion of Elements within the Logout Page
 
 ### Keyword executed on start of each tests ###
 Test Setup      Launch Website

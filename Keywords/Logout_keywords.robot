@@ -9,6 +9,11 @@ Resource        ../Keywords/Global_keywords.robot
 Resource        ../Variables/Login_variables.robot
 Resource        ../Variables/Logout_variables.robot
 
+### Documentation ###
+Documentation   This Keyword Robot File is a compilation Logout functionality
+...             Logout to Website
+...             Security Checks after Proper Logout
+
 *** Keywords ***
 ###############################
 ## Logout Component Keywords ##

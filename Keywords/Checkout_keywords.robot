@@ -14,7 +14,7 @@ Resource        ../Variables/Checkout_variables.robot
 ##  Checkout Component Keywords ##
 ##################################
 
-# This Keyword is used to checkout current cart
+# This Keyword is combined Keyword to Complete Checkout Process
 Checkout Cart
     [Arguments]    ${firstname}    ${lastname}    ${postalcode}
     Set Screenshot Directory        ${SCREENSHOT_CHECKOUT_DIR}
@@ -25,7 +25,7 @@ Checkout Cart
     Finish Checkout
 
 
-# This Keyword is used to checkout current cart
+# This Keyword Initiates the 1st Step to Checkout
 Initiate Checkout
     # Build Add to cart button XPath
     ${checkout_btn}=  Set Variable                  xpath://*[@id='checkout' and text()='Checkout']

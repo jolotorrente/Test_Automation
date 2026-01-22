@@ -8,6 +8,11 @@ Resource        ../Keywords/Global_keywords.robot
 ### Resource List of Variables ###
 Resource        ../Variables/Login_variables.robot
 
+### Documentation ###
+Documentation   This Keyword Robot File is a compilation Login functionality
+...             Login to Website
+
+
 *** Keywords ***
 ##############################
 ## Login Component Keywords ##
