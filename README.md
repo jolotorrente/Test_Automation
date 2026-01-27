@@ -1,4 +1,4 @@
-GitHub - jolotorrente/Test_Automation using Robot Framework | Puppeteer Library (Work in Progress)
+GitHub - jolotorrente/Test_Automation using Robot Framework | Puppeteer Library (RETIRED)
 
 Subject for Test Automation: saucedemo.com
 Type of Website: E-Commerce
